@@ -43,27 +43,21 @@ export function CostSummary({
   return (
     <section className="cost-summary" aria-labelledby="cost-summary-heading">
       <header className="cost-summary__header">
-        <div>
-          <p className="cost-summary__eyebrow">Live estimate</p>
-          <h2 id="cost-summary-heading">
-            {destination.name}
-            <span>, {destination.country}</span>
-          </h2>
-        </div>
+        <p className="cost-summary__eyebrow">Trip cost estimate</p>
+        <h2 id="cost-summary-heading">
+          {destination.name}
+          <span>, {destination.country}</span>
+        </h2>
         <p className="cost-summary__meta">
           {numberOfDays} day{numberOfDays === 1 ? '' : 's'} · {groupSize}{' '}
           traveler{groupSize === 1 ? '' : 's'} · {TIER_LABELS[travelTier]}
         </p>
       </header>
 
-      <dl className="cost-summary__lines">
-        {LINE_ITEMS.map((item) => (
-          <div key={item.key} className="cost-summary__line">
-            <dt>{item.label}</dt>
-            <dd>{formatCurrency(costs[item.key])}</dd>
-          </div>
-        ))}
-      </dl>
+      <div className="cost-summary__grand">
+        <span>Estimated total</span>
+        <strong>{formatCurrency(costs.grandTotal)}</strong>
+      </div>
 
       <div className="cost-summary__totals">
         <div className="cost-summary__stat">
@@ -74,11 +68,17 @@ export function CostSummary({
           <span>Per person trip</span>
           <strong>{formatCurrency(costs.perPersonTrip)}</strong>
         </div>
-        <div className="cost-summary__grand">
-          <span>Grand total</span>
-          <strong>{formatCurrency(costs.grandTotal)}</strong>
-        </div>
       </div>
+
+      <h3 className="cost-summary__breakdown-title">What’s included</h3>
+      <dl className="cost-summary__lines">
+        {LINE_ITEMS.map((item) => (
+          <div key={item.key} className="cost-summary__line">
+            <dt>{item.label}</dt>
+            <dd>{formatCurrency(costs[item.key])}</dd>
+          </div>
+        ))}
+      </dl>
     </section>
   );
 }

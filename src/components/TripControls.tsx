@@ -26,8 +26,8 @@ export function TripControls({
   return (
     <section className="trip-controls" aria-labelledby="trip-controls-heading">
       <header className="trip-controls__header">
-        <h2 id="trip-controls-heading">Trip controls</h2>
-        <p>Tune length, party size, and spend style.</p>
+        <h2 id="trip-controls-heading">Adjust your estimate</h2>
+        <p>Change days, group size, or travel style to update the total.</p>
       </header>
 
       <div className="trip-controls__fields">
