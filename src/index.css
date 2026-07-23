@@ -1,0 +1,122 @@
+:root {
+  color-scheme: dark;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  line-height: 1.4;
+  font-weight: 400;
+  color: #e8eef7;
+  background:
+    radial-gradient(ellipse at top left, #1a2a3a 0%, transparent 55%),
+    radial-gradient(ellipse at bottom right, #0f1c28 0%, #060b12 60%);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+  height: 100%;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 100dvh;
+}
+
+.app__header {
+  flex: 0 0 auto;
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid rgba(148, 176, 210, 0.2);
+  background: rgba(6, 11, 18, 0.72);
+  backdrop-filter: blur(8px);
+}
+
+.app__header h1 {
+  margin: 0;
+  font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+  letter-spacing: 0.02em;
+}
+
+.app__header p {
+  margin: 0.25rem 0 0;
+  color: #9bb0c7;
+  font-size: 0.9rem;
+}
+
+.app__map {
+  flex: 1 1 auto;
+  min-height: 280px;
+  width: 100%;
+}
+
+.budget-travel-map {
+  width: 100%;
+  height: 100%;
+}
+
+.budget-travel-map__marker {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  color: #f4f8ff;
+  font: inherit;
+}
+
+.budget-travel-map__marker-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #3dd6c6;
+  border: 2px solid #061018;
+  box-shadow: 0 0 0 2px rgba(61, 214, 198, 0.45);
+}
+
+.budget-travel-map__marker-label {
+  max-width: 9rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 0.25rem;
+  background: rgba(6, 16, 24, 0.88);
+  font-size: 0.72rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.budget-travel-map__marker:hover .budget-travel-map__marker-dot,
+.budget-travel-map__marker:focus-visible .budget-travel-map__marker-dot {
+  background: #7cf0e4;
+}
+
+.budget-travel-map__marker:focus-visible {
+  outline: none;
+}
+
+.budget-travel-map__marker:focus-visible .budget-travel-map__marker-label {
+  outline: 2px solid #7cf0e4;
+  outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+  .app__header {
+    padding: 0.75rem 1rem;
+  }
+
+  .budget-travel-map__marker-label {
+    max-width: 6.5rem;
+    font-size: 0.68rem;
+  }
+}
