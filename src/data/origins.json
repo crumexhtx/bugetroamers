@@ -1,0 +1,44 @@
+[
+  {
+    "id": "houston",
+    "name": "Houston",
+    "country": "United States",
+    "lat": 29.7604,
+    "lng": -95.3698
+  },
+  {
+    "id": "new-york",
+    "name": "New York",
+    "country": "United States",
+    "lat": 40.7128,
+    "lng": -74.006
+  },
+  {
+    "id": "los-angeles",
+    "name": "Los Angeles",
+    "country": "United States",
+    "lat": 34.0522,
+    "lng": -118.2437
+  },
+  {
+    "id": "chicago",
+    "name": "Chicago",
+    "country": "United States",
+    "lat": 41.8781,
+    "lng": -87.6298
+  },
+  {
+    "id": "miami",
+    "name": "Miami",
+    "country": "United States",
+    "lat": 25.7617,
+    "lng": -80.1918
+  },
+  {
+    "id": "london",
+    "name": "London",
+    "country": "United Kingdom",
+    "lat": 51.5072,
+    "lng": -0.1276
+  }
+]

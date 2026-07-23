@@ -1,54 +1,33 @@
-import type { TravelTier } from '../utils/costEngine';
+import { MONTH_LABELS } from '../utils/costEngine';
+import type { Destination, TravelSeason } from '../types';
 
 export interface TripControlsProps {
-  numberOfDays: number;
   groupSize: number;
-  travelTier: TravelTier;
-  onNumberOfDaysChange: (days: number) => void;
+  travelSeason: TravelSeason;
+  seasonality: Destination['seasonality'];
   onGroupSizeChange: (size: number) => void;
-  onTravelTierChange: (tier: TravelTier) => void;
 }
 
-const TIER_OPTIONS: { value: TravelTier; label: string; hint: string }[] = [
-  { value: 'budget', label: 'Budget', hint: 'Hostels & street food' },
-  { value: 'midrange', label: 'Midrange', hint: 'Private rooms & cafés' },
-  { value: 'luxury', label: 'Luxury', hint: 'Boutique stays & dining' },
+const SEASON_OPTIONS: { value: TravelSeason; label: string; hint: string }[] = [
+  { value: 'cheapest', label: 'Cheapest', hint: 'Lowest typical airfares' },
+  { value: 'best', label: 'Best time', hint: 'Balanced weather and demand' },
+  { value: 'busiest', label: 'Busiest', hint: 'Highest demand and airfares' },
 ];
 
 export function TripControls({
-  numberOfDays,
   groupSize,
-  travelTier,
-  onNumberOfDaysChange,
+  travelSeason,
+  seasonality,
   onGroupSizeChange,
-  onTravelTierChange,
 }: TripControlsProps) {
   return (
     <section className="trip-controls" aria-labelledby="trip-controls-heading">
       <header className="trip-controls__header">
         <h2 id="trip-controls-heading">Adjust your estimate</h2>
-        <p>Change days, group size, or travel style to update the total.</p>
+        <p>Your dates automatically determine the expected flight season.</p>
       </header>
 
       <div className="trip-controls__fields">
-        <label className="trip-controls__field">
-          <span className="trip-controls__label-row">
-            <span>Number of days</span>
-            <output htmlFor="number-of-days">{numberOfDays}</output>
-          </span>
-          <input
-            id="number-of-days"
-            type="range"
-            min={1}
-            max={30}
-            step={1}
-            value={numberOfDays}
-            onChange={(event) =>
-              onNumberOfDaysChange(Number(event.target.value))
-            }
-          />
-        </label>
-
         <label className="trip-controls__field">
           <span className="trip-controls__label-row">
             <span>Group size</span>
@@ -66,16 +45,18 @@ export function TripControls({
         </label>
 
         <fieldset className="trip-controls__tiers">
-          <legend>Travel tier</legend>
+          <legend>When to fly</legend>
           <div
             className="trip-controls__tier-options"
-            role="radiogroup"
-            aria-label="Travel tier"
+            aria-label="Destination travel seasons"
           >
-            {TIER_OPTIONS.map((option) => {
-              const selected = travelTier === option.value;
+            {SEASON_OPTIONS.map((option) => {
+              const selected = travelSeason === option.value;
+              const months = seasonality[option.value]
+                .map((month) => MONTH_LABELS[month - 1])
+                .join(', ');
               return (
-                <label
+                <div
                   key={option.value}
                   className={[
                     'trip-controls__tier',
@@ -83,19 +64,14 @@ export function TripControls({
                   ]
                     .filter(Boolean)
                     .join(' ')}
+                  aria-current={selected ? 'true' : undefined}
                 >
-                  <input
-                    type="radio"
-                    name="travel-tier"
-                    value={option.value}
-                    checked={selected}
-                    onChange={() => onTravelTierChange(option.value)}
-                  />
                   <span className="trip-controls__tier-label">
                     {option.label}
                   </span>
                   <span className="trip-controls__tier-hint">{option.hint}</span>
-                </label>
+                  <span className="trip-controls__tier-months">{months}</span>
+                </div>
               );
             })}
           </div>

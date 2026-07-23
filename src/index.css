@@ -26,6 +26,22 @@
   -webkit-font-smoothing: antialiased;
 }
 
+:root[data-theme='light'] {
+  color-scheme: light;
+  --ink: #172635;
+  --muted: #597084;
+  --panel: rgba(255, 255, 255, 0.88);
+  --panel-edge: rgba(35, 73, 96, 0.2);
+  --accent: #087e73;
+  --accent-soft: rgba(8, 126, 115, 0.12);
+  --track: rgba(39, 82, 110, 0.2);
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse 80% 55% at 10% -10%, #ccecf0 0%, transparent 55%),
+    radial-gradient(ellipse 70% 50% at 100% 0%, #dcebf7 0%, transparent 45%),
+    linear-gradient(165deg, #f8fbfd 0%, #eef5f8 48%, #f7fafc 100%);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -57,6 +73,10 @@ fieldset {
   border-bottom: 1px solid var(--panel-edge);
   background: rgba(5, 10, 16, 0.55);
   backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
 }
 
 .app-shell__brand-mark {
@@ -76,11 +96,53 @@ fieldset {
   color: var(--muted);
 }
 
+.theme-toggle {
+  flex: 0 0 auto;
+  min-height: 2.4rem;
+  padding: 0.45rem 0.75rem;
+  border: 1px solid var(--panel-edge);
+  border-radius: 999px;
+  background: var(--panel);
+  color: var(--ink);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.app-shell__actions,
+.app-shell__actions nav {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.app-shell__actions nav button {
+  padding: 0.4rem 0.55rem;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.app-shell__actions nav button:hover,
+.app-shell__actions nav button:focus-visible {
+  color: var(--accent);
+}
+
 .app-layout {
   flex: 1 1 auto;
   display: grid;
   grid-template-rows: var(--map-min) minmax(0, 1fr);
   min-height: 0;
+}
+
+.app-layout.app-layout--single {
+  grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+}
+
+.app-layout--single .app-layout__dashboard {
+  width: min(100%, 1180px);
+  margin: 0 auto;
 }
 
 .app-layout__map {
@@ -105,6 +167,28 @@ fieldset {
   height: 100%;
 }
 
+.budget-travel-map__shell {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.budget-travel-map__status {
+  position: absolute;
+  left: 50%;
+  bottom: 1rem;
+  z-index: 2;
+  max-width: calc(100% - 2rem);
+  margin: 0;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid var(--panel-edge);
+  border-radius: 0.5rem;
+  background: rgba(6, 16, 24, 0.92);
+  color: var(--ink);
+  text-align: center;
+  transform: translateX(-50%);
+}
+
 .budget-travel-map__marker {
   display: inline-flex;
   flex-direction: column;
@@ -118,6 +202,10 @@ fieldset {
   font: inherit;
 }
 
+.budget-travel-map__marker[hidden] {
+  display: none;
+}
+
 .budget-travel-map__marker-dot {
   width: 14px;
   height: 14px;
@@ -127,9 +215,37 @@ fieldset {
   box-shadow: 0 0 0 2px rgba(47, 212, 194, 0.4);
 }
 
+.budget-travel-map__origin {
+  padding: 0.2rem 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 0.35rem;
+  background: #dc2626;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  font-size: 0.72rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.budget-travel-map__vehicle {
+  display: grid;
+  place-items: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.65));
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.budget-travel-map__vehicle-icon {
+  display: block;
+  transform-origin: center;
+}
+
 .budget-travel-map__marker-label {
   max-width: 9rem;
   padding: 0.15rem 0.45rem;
+  border: 1px solid transparent;
   border-radius: 0.25rem;
   background: rgba(6, 16, 24, 0.88);
   font-size: 0.72rem;
@@ -140,8 +256,20 @@ fieldset {
 }
 
 .budget-travel-map__marker:hover .budget-travel-map__marker-dot,
-.budget-travel-map__marker:focus-visible .budget-travel-map__marker-dot {
+.budget-travel-map__marker:focus-visible .budget-travel-map__marker-dot,
+.budget-travel-map__marker.is-selected .budget-travel-map__marker-dot {
   background: #7cf0e4;
+}
+
+.budget-travel-map__marker.is-selected .budget-travel-map__marker-dot {
+  box-shadow: 0 0 0 5px rgba(47, 212, 194, 0.35);
+}
+
+.budget-travel-map__marker.is-selected .budget-travel-map__marker-label {
+  border-color: #60a5fa;
+  background: #2563eb;
+  color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
 }
 
 .budget-travel-map__marker:focus-visible {
@@ -227,7 +355,7 @@ fieldset {
   border: 1px solid var(--panel-edge);
   border-radius: 0.55rem;
   background: rgba(12, 22, 34, 0.55);
-  cursor: pointer;
+  cursor: default;
   transition: border-color 160ms ease, background 160ms ease;
 }
 
@@ -248,9 +376,31 @@ fieldset {
   line-height: 1.25;
 }
 
+.trip-controls__tier-months {
+  margin-top: 0.25rem;
+  color: var(--ink);
+  font-size: 0.74rem;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
 .trip-controls__tier.is-selected {
   border-color: rgba(47, 212, 194, 0.55);
   background: var(--accent-soft);
+}
+
+.trip-controls__tier.is-selected::after {
+  content: 'Your dates';
+  width: fit-content;
+  margin-top: 0.35rem;
+  padding: 0.1rem 0.35rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #061018;
+  font-size: 0.64rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .trip-controls__tier:focus-within {
@@ -365,7 +515,343 @@ fieldset {
   color: var(--accent);
 }
 
+.planner-panel {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1rem 1.05rem;
+  border: 1px solid var(--panel-edge);
+  border-radius: 0.85rem;
+  background: var(--panel);
+}
+
+.planner-panel h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+}
+
+.planner-panel label {
+  display: grid;
+  gap: 0.3rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.planner-panel input,
+.planner-panel select,
+.planner-panel button {
+  min-height: 2.35rem;
+  border: 1px solid var(--panel-edge);
+  border-radius: 0.45rem;
+  padding: 0.45rem 0.6rem;
+  color: var(--ink);
+  background: rgba(5, 12, 20, 0.82);
+}
+
+.planner-panel button {
+  cursor: pointer;
+  color: var(--accent);
+  font-weight: 650;
+}
+
+.planner-panel button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.transport-estimate {
+  display: grid;
+  gap: 0.15rem;
+  align-content: center;
+}
+
+.transport-estimate span,
+.transport-estimate small {
+  color: var(--muted);
+}
+
+.transport-estimate strong {
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+}
+
+.planner-actions {
+  grid-template-columns: minmax(10rem, 1fr) repeat(3, auto);
+  align-items: end;
+}
+
+.planner-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.planner-grid h2 {
+  grid-column: 1 / -1;
+}
+
+.planner-list {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.planner-row {
+  display: grid;
+  grid-template-columns: auto minmax(7rem, 1fr) auto;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.planner-help,
+.estimate-disclaimer {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.city-overview {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(260px, 0.75fr);
+  min-height: 420px;
+  overflow: hidden;
+  border: 1px solid var(--panel-edge);
+  border-radius: 0.85rem;
+}
+
+.city-overview__map {
+  min-height: 420px;
+}
+
+.city-overview__description {
+  align-content: center;
+  border: 0;
+  border-left: 1px solid var(--panel-edge);
+  border-radius: 0;
+}
+
+.city-overview__description h2,
+.city-overview__description p {
+  margin: 0;
+}
+
+.city-overview__description h2 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+}
+
+.destination-snapshot {
+  display: grid;
+  gap: 0.65rem;
+  margin: 0.25rem 0;
+}
+
+.destination-snapshot a {
+  display: block;
+  overflow: hidden;
+  border-radius: 0.65rem;
+}
+
+.destination-snapshot img {
+  display: block;
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.destination-snapshot__weather {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.1rem 0.75rem;
+  align-items: baseline;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--panel-edge);
+  border-radius: 0.55rem;
+  background: var(--accent-soft);
+}
+
+.destination-snapshot__weather span,
+.destination-snapshot__weather small,
+.destination-snapshot__caption,
+.destination-snapshot__status {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.destination-snapshot__caption {
+  margin-top: -0.4rem;
+}
+
+.destination-snapshot__weather strong {
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+}
+
+.destination-snapshot__weather small {
+  grid-column: 1 / -1;
+}
+
+.destination-snapshot__status {
+  margin: 0.4rem 0;
+}
+
+.featured-destinations {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.featured-destinations__header h2,
+.featured-destinations__header p {
+  margin: 0;
+}
+
+.featured-destinations__header h2 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+}
+
+.featured-destinations__header p {
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.featured-destinations__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.featured-destination {
+  position: relative;
+  min-height: 150px;
+  overflow: hidden;
+  border: 1px solid var(--panel-edge);
+  border-radius: 0.75rem;
+  padding: 0;
+  background: var(--panel);
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.featured-destination img,
+.featured-destination__placeholder {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.featured-destination__placeholder {
+  background: linear-gradient(145deg, #28566a, #172535);
+}
+
+.featured-destination::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent 30%, rgba(0, 0, 0, 0.85));
+}
+
+.featured-destination__label {
+  position: absolute;
+  z-index: 1;
+  right: 0.75rem;
+  bottom: 0.65rem;
+  left: 0.75rem;
+  display: grid;
+  text-align: left;
+}
+
+.featured-destination__label strong {
+  font-family: var(--font-display);
+  font-size: 1rem;
+}
+
+.featured-destination__label small {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.static-page {
+  width: min(100% - 2rem, 760px);
+  margin: auto;
+  padding: clamp(2rem, 8vw, 5rem);
+  border: 1px solid var(--panel-edge);
+  border-radius: 1rem;
+  background: var(--panel);
+}
+
+.static-page h1 {
+  margin: 0.35rem 0 1rem;
+  font-family: var(--font-display);
+}
+
+.static-page > p:not(.cost-summary__eyebrow) {
+  color: var(--muted);
+}
+
+.static-page button {
+  min-height: 2.5rem;
+  margin-top: 1rem;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid var(--panel-edge);
+  border-radius: 0.5rem;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.static-page__notice {
+  display: grid;
+  gap: 0.2rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--panel-edge);
+  border-radius: 0.65rem;
+  background: var(--accent-soft);
+}
+
+.static-page__notice span {
+  color: var(--muted);
+}
+
+:root[data-theme='light'] .app-shell__brand {
+  background: rgba(255, 255, 255, 0.72);
+}
+
+:root[data-theme='light'] .app-layout__dashboard {
+  background: linear-gradient(180deg, rgba(221, 238, 244, 0.45), transparent 40%);
+}
+
+:root[data-theme='light'] .cost-summary {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(239, 247, 250, 0.94));
+}
+
+:root[data-theme='light'] .planner-panel input,
+:root[data-theme='light'] .planner-panel select,
+:root[data-theme='light'] .planner-panel button {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.estimate-disclaimer {
+  padding: 0.75rem 0.2rem;
+}
+
 @media (max-width: 640px) {
+  .app-shell__brand {
+    align-items: flex-start;
+  }
+
+  .app-shell__actions {
+    align-items: flex-end;
+    flex-direction: column-reverse;
+  }
+
+  .app-shell__actions nav {
+    gap: 0.1rem;
+  }
+
   .trip-controls__tier-options {
     grid-template-columns: 1fr;
   }
@@ -373,6 +859,29 @@ fieldset {
   .budget-travel-map__marker-label {
     max-width: 6.5rem;
     font-size: 0.68rem;
+  }
+
+  .planner-actions,
+  .planner-grid,
+  .planner-row {
+    grid-template-columns: 1fr;
+  }
+
+  .city-overview {
+    grid-template-columns: 1fr;
+  }
+
+  .city-overview__map {
+    min-height: 340px;
+  }
+
+  .city-overview__description {
+    border-top: 1px solid var(--panel-edge);
+    border-left: 0;
+  }
+
+  .featured-destinations__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

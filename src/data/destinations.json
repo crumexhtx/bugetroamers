@@ -5,7 +5,12 @@
     "country": "Portugal",
     "lat": 38.7223,
     "lng": -9.1393,
-    "dailyBudget": 55
+    "dailyBudget": 55,
+    "seasonality": {
+      "cheapest": [1, 2, 11],
+      "best": [3, 4, 5, 9, 10, 12],
+      "busiest": [6, 7, 8]
+    }
   },
   {
     "id": "bangkok",
@@ -13,7 +18,12 @@
     "country": "Thailand",
     "lat": 13.7563,
     "lng": 100.5018,
-    "dailyBudget": 40
+    "dailyBudget": 40,
+    "seasonality": {
+      "cheapest": [5, 6, 9, 10],
+      "best": [1, 2, 11, 12],
+      "busiest": [3, 4, 7, 8]
+    }
   },
   {
     "id": "mexico-city",
@@ -21,7 +31,12 @@
     "country": "Mexico",
     "lat": 19.4326,
     "lng": -99.1332,
-    "dailyBudget": 45
+    "dailyBudget": 45,
+    "seasonality": {
+      "cheapest": [1, 2, 9],
+      "best": [3, 4, 10, 11],
+      "busiest": [5, 6, 7, 8, 12]
+    }
   },
   {
     "id": "budapest",
@@ -29,7 +44,12 @@
     "country": "Hungary",
     "lat": 47.4979,
     "lng": 19.0402,
-    "dailyBudget": 50
+    "dailyBudget": 50,
+    "seasonality": {
+      "cheapest": [1, 2, 11],
+      "best": [3, 4, 5, 9, 10],
+      "busiest": [6, 7, 8, 12]
+    }
   },
   {
     "id": "hanoi",
@@ -37,7 +57,12 @@
     "country": "Vietnam",
     "lat": 21.0278,
     "lng": 105.8342,
-    "dailyBudget": 35
+    "dailyBudget": 35,
+    "seasonality": {
+      "cheapest": [5, 6, 9],
+      "best": [2, 3, 4, 10, 11],
+      "busiest": [1, 7, 8, 12]
+    }
   },
   {
     "id": "marrakech",
@@ -45,6 +70,271 @@
     "country": "Morocco",
     "lat": 31.6295,
     "lng": -7.9811,
-    "dailyBudget": 42
+    "dailyBudget": 42,
+    "seasonality": {
+      "cheapest": [1, 7, 8],
+      "best": [2, 3, 4, 5, 10, 11],
+      "busiest": [6, 9, 12]
+    }
+  },
+  {
+    "id": "paris",
+    "name": "Paris",
+    "country": "France",
+    "lat": 48.8566,
+    "lng": 2.3522,
+    "dailyBudget": 120,
+    "seasonality": {
+      "cheapest": [1, 2, 11],
+      "best": [3, 4, 5, 9, 10],
+      "busiest": [6, 7, 8, 12]
+    }
+  },
+  {
+    "id": "london",
+    "name": "London",
+    "country": "United Kingdom",
+    "lat": 51.5072,
+    "lng": -0.1276,
+    "dailyBudget": 130,
+    "seasonality": {
+      "cheapest": [1, 2, 11],
+      "best": [3, 4, 5, 9, 10],
+      "busiest": [6, 7, 8, 12]
+    }
+  },
+  {
+    "id": "rome",
+    "name": "Rome",
+    "country": "Italy",
+    "lat": 41.9028,
+    "lng": 12.4964,
+    "dailyBudget": 100,
+    "seasonality": {
+      "cheapest": [1, 2, 11],
+      "best": [3, 4, 5, 10],
+      "busiest": [6, 7, 8, 9, 12]
+    }
+  },
+  {
+    "id": "barcelona",
+    "name": "Barcelona",
+    "country": "Spain",
+    "lat": 41.3874,
+    "lng": 2.1686,
+    "dailyBudget": 95,
+    "seasonality": {
+      "cheapest": [1, 2, 11],
+      "best": [3, 4, 5, 10],
+      "busiest": [6, 7, 8, 9, 12]
+    }
+  },
+  {
+    "id": "amsterdam",
+    "name": "Amsterdam",
+    "country": "Netherlands",
+    "lat": 52.3676,
+    "lng": 4.9041,
+    "dailyBudget": 125,
+    "seasonality": {
+      "cheapest": [1, 2, 11],
+      "best": [3, 4, 5, 9, 10],
+      "busiest": [6, 7, 8, 12]
+    }
+  },
+  {
+    "id": "istanbul",
+    "name": "Istanbul",
+    "country": "Türkiye",
+    "lat": 41.0082,
+    "lng": 28.9784,
+    "dailyBudget": 55,
+    "seasonality": {
+      "cheapest": [1, 2, 11],
+      "best": [3, 4, 5, 9, 10],
+      "busiest": [6, 7, 8, 12]
+    }
+  },
+  {
+    "id": "dubai",
+    "name": "Dubai",
+    "country": "United Arab Emirates",
+    "lat": 25.2048,
+    "lng": 55.2708,
+    "dailyBudget": 150,
+    "seasonality": {
+      "cheapest": [5, 6, 7, 8, 9],
+      "best": [1, 2, 3, 4, 10, 11],
+      "busiest": [12]
+    }
+  },
+  {
+    "id": "tokyo",
+    "name": "Tokyo",
+    "country": "Japan",
+    "lat": 35.6762,
+    "lng": 139.6503,
+    "dailyBudget": 110,
+    "seasonality": {
+      "cheapest": [1, 2, 6],
+      "best": [3, 4, 5, 9, 11],
+      "busiest": [7, 8, 10, 12]
+    }
+  },
+  {
+    "id": "seoul",
+    "name": "Seoul",
+    "country": "South Korea",
+    "lat": 37.5665,
+    "lng": 126.978,
+    "dailyBudget": 90,
+    "seasonality": {
+      "cheapest": [1, 2, 6],
+      "best": [3, 4, 5, 9, 11],
+      "busiest": [7, 8, 10, 12]
+    }
+  },
+  {
+    "id": "singapore",
+    "name": "Singapore",
+    "country": "Singapore",
+    "lat": 1.3521,
+    "lng": 103.8198,
+    "dailyBudget": 100,
+    "seasonality": {
+      "cheapest": [2, 3, 9, 10],
+      "best": [1, 4, 5, 11],
+      "busiest": [6, 7, 8, 12]
+    }
+  },
+  {
+    "id": "bali",
+    "name": "Bali",
+    "country": "Indonesia",
+    "lat": -8.4095,
+    "lng": 115.1889,
+    "dailyBudget": 55,
+    "seasonality": {
+      "cheapest": [1, 2, 3, 11],
+      "best": [4, 5, 9, 10],
+      "busiest": [6, 7, 8, 12]
+    }
+  },
+  {
+    "id": "new-york",
+    "name": "New York",
+    "country": "United States",
+    "lat": 40.7128,
+    "lng": -74.006,
+    "dailyBudget": 180,
+    "seasonality": {
+      "cheapest": [1, 2],
+      "best": [3, 4, 5, 9, 10, 11],
+      "busiest": [6, 7, 8, 12]
+    }
+  },
+  {
+    "id": "los-angeles",
+    "name": "Los Angeles",
+    "country": "United States",
+    "lat": 34.0522,
+    "lng": -118.2437,
+    "dailyBudget": 160,
+    "seasonality": {
+      "cheapest": [1, 2, 11],
+      "best": [3, 4, 5, 9, 10],
+      "busiest": [6, 7, 8, 12]
+    }
+  },
+  {
+    "id": "orlando",
+    "name": "Orlando",
+    "country": "United States",
+    "lat": 28.5383,
+    "lng": -81.3792,
+    "dailyBudget": 140,
+    "seasonality": {
+      "cheapest": [1, 2, 9],
+      "best": [3, 4, 5, 10, 11],
+      "busiest": [6, 7, 8, 12]
+    }
+  },
+  {
+    "id": "cancun",
+    "name": "Cancún",
+    "country": "Mexico",
+    "lat": 21.1619,
+    "lng": -86.8515,
+    "dailyBudget": 110,
+    "seasonality": {
+      "cheapest": [5, 6, 9, 10],
+      "best": [1, 2, 3, 4, 11],
+      "busiest": [7, 8, 12]
+    }
+  },
+  {
+    "id": "rio-de-janeiro",
+    "name": "Rio de Janeiro",
+    "country": "Brazil",
+    "lat": -22.9068,
+    "lng": -43.1729,
+    "dailyBudget": 75,
+    "seasonality": {
+      "cheapest": [5, 6, 8],
+      "best": [3, 4, 9, 10, 11],
+      "busiest": [1, 2, 7, 12]
+    }
+  },
+  {
+    "id": "buenos-aires",
+    "name": "Buenos Aires",
+    "country": "Argentina",
+    "lat": -34.6037,
+    "lng": -58.3816,
+    "dailyBudget": 70,
+    "seasonality": {
+      "cheapest": [6, 7, 8],
+      "best": [3, 4, 5, 9, 10, 11],
+      "busiest": [1, 2, 12]
+    }
+  },
+  {
+    "id": "cape-town",
+    "name": "Cape Town",
+    "country": "South Africa",
+    "lat": -33.9249,
+    "lng": 18.4241,
+    "dailyBudget": 85,
+    "seasonality": {
+      "cheapest": [5, 6, 7, 8],
+      "best": [3, 4, 9, 10, 11],
+      "busiest": [1, 2, 12]
+    }
+  },
+  {
+    "id": "cairo",
+    "name": "Cairo",
+    "country": "Egypt",
+    "lat": 30.0444,
+    "lng": 31.2357,
+    "dailyBudget": 50,
+    "seasonality": {
+      "cheapest": [6, 7, 8],
+      "best": [2, 3, 4, 10, 11],
+      "busiest": [1, 5, 9, 12]
+    }
+  },
+  {
+    "id": "sydney",
+    "name": "Sydney",
+    "country": "Australia",
+    "lat": -33.8688,
+    "lng": 151.2093,
+    "dailyBudget": 140,
+    "seasonality": {
+      "cheapest": [5, 6, 7, 8],
+      "best": [3, 4, 9, 10, 11],
+      "busiest": [1, 2, 12]
+    }
   }
 ]

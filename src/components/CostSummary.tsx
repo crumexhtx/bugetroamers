@@ -1,84 +1,36 @@
-import type { Destination } from './BudgetTravelMap';
 import {
   formatCurrency,
-  type CostBreakdown,
-  type TravelTier,
+  type TripCostBreakdown,
 } from '../utils/costEngine';
+import type { TripPlan } from '../types';
 
 export interface CostSummaryProps {
-  destination: Destination;
-  numberOfDays: number;
-  groupSize: number;
-  travelTier: TravelTier;
-  costs: CostBreakdown;
+  trip: TripPlan;
+  costs: TripCostBreakdown;
 }
 
-const TIER_LABELS: Record<TravelTier, string> = {
-  budget: 'Budget',
-  midrange: 'Midrange',
-  luxury: 'Luxury',
-};
-
-const LINE_ITEMS: {
-  key: keyof Pick<
-    CostBreakdown,
-    'lodging' | 'food' | 'localTransport' | 'activities' | 'contingency'
-  >;
-  label: string;
-}[] = [
-  { key: 'lodging', label: 'Lodging' },
-  { key: 'food', label: 'Food & drink' },
-  { key: 'localTransport', label: 'Local transport' },
-  { key: 'activities', label: 'Activities' },
-  { key: 'contingency', label: 'Contingency' },
-];
-
 export function CostSummary({
-  destination,
-  numberOfDays,
-  groupSize,
-  travelTier,
+  trip,
   costs,
 }: CostSummaryProps) {
+  const currency = trip.displayCurrency;
+
   return (
     <section className="cost-summary" aria-labelledby="cost-summary-heading">
       <header className="cost-summary__header">
-        <p className="cost-summary__eyebrow">Trip cost estimate</p>
-        <h2 id="cost-summary-heading">
-          {destination.name}
-          <span>, {destination.country}</span>
-        </h2>
+        <p className="cost-summary__eyebrow">Average trip cost</p>
+        <h2 id="cost-summary-heading">Your trip estimate</h2>
         <p className="cost-summary__meta">
-          {numberOfDays} day{numberOfDays === 1 ? '' : 's'} · {groupSize}{' '}
-          traveler{groupSize === 1 ? '' : 's'} · {TIER_LABELS[travelTier]}
+          {trip.startDate}–{trip.endDate} · {trip.groupSize} traveler
+          {trip.groupSize === 1 ? '' : 's'} · {trip.legs.length} stop
+          {trip.legs.length === 1 ? '' : 's'}
         </p>
       </header>
 
       <div className="cost-summary__grand">
-        <span>Estimated total</span>
-        <strong>{formatCurrency(costs.grandTotal)}</strong>
+        <span>Average estimated total</span>
+        <strong>{formatCurrency(costs.grandTotal, currency)}</strong>
       </div>
-
-      <div className="cost-summary__totals">
-        <div className="cost-summary__stat">
-          <span>Per person / day</span>
-          <strong>{formatCurrency(costs.perPersonDaily)}</strong>
-        </div>
-        <div className="cost-summary__stat">
-          <span>Per person trip</span>
-          <strong>{formatCurrency(costs.perPersonTrip)}</strong>
-        </div>
-      </div>
-
-      <h3 className="cost-summary__breakdown-title">What’s included</h3>
-      <dl className="cost-summary__lines">
-        {LINE_ITEMS.map((item) => (
-          <div key={item.key} className="cost-summary__line">
-            <dt>{item.label}</dt>
-            <dd>{formatCurrency(costs[item.key])}</dd>
-          </div>
-        ))}
-      </dl>
     </section>
   );
 }
