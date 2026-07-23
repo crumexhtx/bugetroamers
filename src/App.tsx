@@ -40,7 +40,7 @@ export default function App() {
     <div className="app-shell">
       <header className="app-shell__brand">
         <p className="app-shell__brand-mark">Budget Roamers</p>
-        <h1>Plan a trip you can actually afford</h1>
+        <h1>Estimate your trip cost before you book</h1>
       </header>
 
       <div className="app-layout">
@@ -50,7 +50,14 @@ export default function App() {
           />
         </section>
 
-        <aside className="app-layout__dashboard" aria-label="Budget dashboard">
+        <aside className="app-layout__dashboard" aria-label="Trip cost planner">
+          <CostSummary
+            destination={selectedDestination}
+            numberOfDays={numberOfDays}
+            groupSize={groupSize}
+            travelTier={travelTier}
+            costs={costs}
+          />
           <TripControls
             numberOfDays={numberOfDays}
             groupSize={groupSize}
@@ -58,13 +65,6 @@ export default function App() {
             onNumberOfDaysChange={setNumberOfDays}
             onGroupSizeChange={setGroupSize}
             onTravelTierChange={setTravelTier}
-          />
-          <CostSummary
-            destination={selectedDestination}
-            numberOfDays={numberOfDays}
-            groupSize={groupSize}
-            travelTier={travelTier}
-            costs={costs}
           />
         </aside>
       </div>
