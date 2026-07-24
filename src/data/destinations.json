@@ -7,9 +7,24 @@
     "lng": -9.1393,
     "dailyBudget": 55,
     "seasonality": {
-      "cheapest": [1, 2, 11],
-      "best": [3, 4, 5, 9, 10, 12],
-      "busiest": [6, 7, 8]
+      "cheapest": [
+        1,
+        2,
+        11
+      ],
+      "best": [
+        3,
+        4,
+        5,
+        9,
+        10,
+        12
+      ],
+      "busiest": [
+        6,
+        7,
+        8
+      ]
     }
   },
   {
@@ -20,9 +35,24 @@
     "lng": 100.5018,
     "dailyBudget": 40,
     "seasonality": {
-      "cheapest": [5, 6, 9, 10],
-      "best": [1, 2, 11, 12],
-      "busiest": [3, 4, 7, 8]
+      "cheapest": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "best": [
+        1,
+        2,
+        11,
+        12
+      ],
+      "busiest": [
+        3,
+        4,
+        7,
+        8
+      ]
     }
   },
   {
@@ -33,9 +63,24 @@
     "lng": -99.1332,
     "dailyBudget": 45,
     "seasonality": {
-      "cheapest": [1, 2, 9],
-      "best": [3, 4, 10, 11],
-      "busiest": [5, 6, 7, 8, 12]
+      "cheapest": [
+        1,
+        2,
+        9
+      ],
+      "best": [
+        3,
+        4,
+        10,
+        11
+      ],
+      "busiest": [
+        5,
+        6,
+        7,
+        8,
+        12
+      ]
     }
   },
   {
@@ -46,9 +91,24 @@
     "lng": 19.0402,
     "dailyBudget": 50,
     "seasonality": {
-      "cheapest": [1, 2, 11],
-      "best": [3, 4, 5, 9, 10],
-      "busiest": [6, 7, 8, 12]
+      "cheapest": [
+        1,
+        2,
+        11
+      ],
+      "best": [
+        3,
+        4,
+        5,
+        9,
+        10
+      ],
+      "busiest": [
+        6,
+        7,
+        8,
+        12
+      ]
     }
   },
   {
@@ -59,9 +119,24 @@
     "lng": 105.8342,
     "dailyBudget": 35,
     "seasonality": {
-      "cheapest": [5, 6, 9],
-      "best": [2, 3, 4, 10, 11],
-      "busiest": [1, 7, 8, 12]
+      "cheapest": [
+        5,
+        6,
+        9
+      ],
+      "best": [
+        2,
+        3,
+        4,
+        10,
+        11
+      ],
+      "busiest": [
+        1,
+        7,
+        8,
+        12
+      ]
     }
   },
   {
@@ -72,9 +147,24 @@
     "lng": -7.9811,
     "dailyBudget": 42,
     "seasonality": {
-      "cheapest": [1, 7, 8],
-      "best": [2, 3, 4, 5, 10, 11],
-      "busiest": [6, 9, 12]
+      "cheapest": [
+        1,
+        7,
+        8
+      ],
+      "best": [
+        2,
+        3,
+        4,
+        5,
+        10,
+        11
+      ],
+      "busiest": [
+        6,
+        9,
+        12
+      ]
     }
   },
   {
@@ -85,9 +175,24 @@
     "lng": 2.3522,
     "dailyBudget": 120,
     "seasonality": {
-      "cheapest": [1, 2, 11],
-      "best": [3, 4, 5, 9, 10],
-      "busiest": [6, 7, 8, 12]
+      "cheapest": [
+        1,
+        2,
+        11
+      ],
+      "best": [
+        3,
+        4,
+        5,
+        9,
+        10
+      ],
+      "busiest": [
+        6,
+        7,
+        8,
+        12
+      ]
     }
   },
   {
@@ -98,9 +203,24 @@
     "lng": -0.1276,
     "dailyBudget": 130,
     "seasonality": {
-      "cheapest": [1, 2, 11],
-      "best": [3, 4, 5, 9, 10],
-      "busiest": [6, 7, 8, 12]
+      "cheapest": [
+        1,
+        2,
+        11
+      ],
+      "best": [
+        3,
+        4,
+        5,
+        9,
+        10
+      ],
+      "busiest": [
+        6,
+        7,
+        8,
+        12
+      ]
     }
   },
   {
@@ -111,9 +231,24 @@
     "lng": 12.4964,
     "dailyBudget": 100,
     "seasonality": {
-      "cheapest": [1, 2, 11],
-      "best": [3, 4, 5, 10],
-      "busiest": [6, 7, 8, 9, 12]
+      "cheapest": [
+        1,
+        2,
+        11
+      ],
+      "best": [
+        3,
+        4,
+        5,
+        10
+      ],
+      "busiest": [
+        6,
+        7,
+        8,
+        9,
+        12
+      ]
     }
   },
   {
@@ -124,9 +259,24 @@
     "lng": 2.1686,
     "dailyBudget": 95,
     "seasonality": {
-      "cheapest": [1, 2, 11],
-      "best": [3, 4, 5, 10],
-      "busiest": [6, 7, 8, 9, 12]
+      "cheapest": [
+        1,
+        2,
+        11
+      ],
+      "best": [
+        3,
+        4,
+        5,
+        10
+      ],
+      "busiest": [
+        6,
+        7,
+        8,
+        9,
+        12
+      ]
     }
   },
   {
@@ -137,9 +287,24 @@
     "lng": 4.9041,
     "dailyBudget": 125,
     "seasonality": {
-      "cheapest": [1, 2, 11],
-      "best": [3, 4, 5, 9, 10],
-      "busiest": [6, 7, 8, 12]
+      "cheapest": [
+        1,
+        2,
+        11
+      ],
+      "best": [
+        3,
+        4,
+        5,
+        9,
+        10
+      ],
+      "busiest": [
+        6,
+        7,
+        8,
+        12
+      ]
     }
   },
   {
@@ -150,9 +315,24 @@
     "lng": 28.9784,
     "dailyBudget": 55,
     "seasonality": {
-      "cheapest": [1, 2, 11],
-      "best": [3, 4, 5, 9, 10],
-      "busiest": [6, 7, 8, 12]
+      "cheapest": [
+        1,
+        2,
+        11
+      ],
+      "best": [
+        3,
+        4,
+        5,
+        9,
+        10
+      ],
+      "busiest": [
+        6,
+        7,
+        8,
+        12
+      ]
     }
   },
   {
@@ -163,9 +343,24 @@
     "lng": 55.2708,
     "dailyBudget": 150,
     "seasonality": {
-      "cheapest": [5, 6, 7, 8, 9],
-      "best": [1, 2, 3, 4, 10, 11],
-      "busiest": [12]
+      "cheapest": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "best": [
+        1,
+        2,
+        3,
+        4,
+        10,
+        11
+      ],
+      "busiest": [
+        12
+      ]
     }
   },
   {
@@ -176,9 +371,24 @@
     "lng": 139.6503,
     "dailyBudget": 110,
     "seasonality": {
-      "cheapest": [1, 2, 6],
-      "best": [3, 4, 5, 9, 11],
-      "busiest": [7, 8, 10, 12]
+      "cheapest": [
+        1,
+        2,
+        6
+      ],
+      "best": [
+        3,
+        4,
+        5,
+        9,
+        11
+      ],
+      "busiest": [
+        7,
+        8,
+        10,
+        12
+      ]
     }
   },
   {
@@ -189,9 +399,24 @@
     "lng": 126.978,
     "dailyBudget": 90,
     "seasonality": {
-      "cheapest": [1, 2, 6],
-      "best": [3, 4, 5, 9, 11],
-      "busiest": [7, 8, 10, 12]
+      "cheapest": [
+        1,
+        2,
+        6
+      ],
+      "best": [
+        3,
+        4,
+        5,
+        9,
+        11
+      ],
+      "busiest": [
+        7,
+        8,
+        10,
+        12
+      ]
     }
   },
   {
@@ -202,9 +427,24 @@
     "lng": 103.8198,
     "dailyBudget": 100,
     "seasonality": {
-      "cheapest": [2, 3, 9, 10],
-      "best": [1, 4, 5, 11],
-      "busiest": [6, 7, 8, 12]
+      "cheapest": [
+        2,
+        3,
+        9,
+        10
+      ],
+      "best": [
+        1,
+        4,
+        5,
+        11
+      ],
+      "busiest": [
+        6,
+        7,
+        8,
+        12
+      ]
     }
   },
   {
@@ -215,9 +455,24 @@
     "lng": 115.1889,
     "dailyBudget": 55,
     "seasonality": {
-      "cheapest": [1, 2, 3, 11],
-      "best": [4, 5, 9, 10],
-      "busiest": [6, 7, 8, 12]
+      "cheapest": [
+        1,
+        2,
+        3,
+        11
+      ],
+      "best": [
+        4,
+        5,
+        9,
+        10
+      ],
+      "busiest": [
+        6,
+        7,
+        8,
+        12
+      ]
     }
   },
   {
@@ -228,9 +483,24 @@
     "lng": -74.006,
     "dailyBudget": 180,
     "seasonality": {
-      "cheapest": [1, 2],
-      "best": [3, 4, 5, 9, 10, 11],
-      "busiest": [6, 7, 8, 12]
+      "cheapest": [
+        1,
+        2
+      ],
+      "best": [
+        3,
+        4,
+        5,
+        9,
+        10,
+        11
+      ],
+      "busiest": [
+        6,
+        7,
+        8,
+        12
+      ]
     }
   },
   {
@@ -241,9 +511,24 @@
     "lng": -118.2437,
     "dailyBudget": 160,
     "seasonality": {
-      "cheapest": [1, 2, 11],
-      "best": [3, 4, 5, 9, 10],
-      "busiest": [6, 7, 8, 12]
+      "cheapest": [
+        1,
+        2,
+        11
+      ],
+      "best": [
+        3,
+        4,
+        5,
+        9,
+        10
+      ],
+      "busiest": [
+        6,
+        7,
+        8,
+        12
+      ]
     }
   },
   {
@@ -254,9 +539,24 @@
     "lng": -81.3792,
     "dailyBudget": 140,
     "seasonality": {
-      "cheapest": [1, 2, 9],
-      "best": [3, 4, 5, 10, 11],
-      "busiest": [6, 7, 8, 12]
+      "cheapest": [
+        1,
+        2,
+        9
+      ],
+      "best": [
+        3,
+        4,
+        5,
+        10,
+        11
+      ],
+      "busiest": [
+        6,
+        7,
+        8,
+        12
+      ]
     }
   },
   {
@@ -267,9 +567,24 @@
     "lng": -86.8515,
     "dailyBudget": 110,
     "seasonality": {
-      "cheapest": [5, 6, 9, 10],
-      "best": [1, 2, 3, 4, 11],
-      "busiest": [7, 8, 12]
+      "cheapest": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "best": [
+        1,
+        2,
+        3,
+        4,
+        11
+      ],
+      "busiest": [
+        7,
+        8,
+        12
+      ]
     }
   },
   {
@@ -280,9 +595,24 @@
     "lng": -43.1729,
     "dailyBudget": 75,
     "seasonality": {
-      "cheapest": [5, 6, 8],
-      "best": [3, 4, 9, 10, 11],
-      "busiest": [1, 2, 7, 12]
+      "cheapest": [
+        5,
+        6,
+        8
+      ],
+      "best": [
+        3,
+        4,
+        9,
+        10,
+        11
+      ],
+      "busiest": [
+        1,
+        2,
+        7,
+        12
+      ]
     }
   },
   {
@@ -293,9 +623,24 @@
     "lng": -58.3816,
     "dailyBudget": 70,
     "seasonality": {
-      "cheapest": [6, 7, 8],
-      "best": [3, 4, 5, 9, 10, 11],
-      "busiest": [1, 2, 12]
+      "cheapest": [
+        6,
+        7,
+        8
+      ],
+      "best": [
+        3,
+        4,
+        5,
+        9,
+        10,
+        11
+      ],
+      "busiest": [
+        1,
+        2,
+        12
+      ]
     }
   },
   {
@@ -306,9 +651,24 @@
     "lng": 18.4241,
     "dailyBudget": 85,
     "seasonality": {
-      "cheapest": [5, 6, 7, 8],
-      "best": [3, 4, 9, 10, 11],
-      "busiest": [1, 2, 12]
+      "cheapest": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "best": [
+        3,
+        4,
+        9,
+        10,
+        11
+      ],
+      "busiest": [
+        1,
+        2,
+        12
+      ]
     }
   },
   {
@@ -319,9 +679,24 @@
     "lng": 31.2357,
     "dailyBudget": 50,
     "seasonality": {
-      "cheapest": [6, 7, 8],
-      "best": [2, 3, 4, 10, 11],
-      "busiest": [1, 5, 9, 12]
+      "cheapest": [
+        6,
+        7,
+        8
+      ],
+      "best": [
+        2,
+        3,
+        4,
+        10,
+        11
+      ],
+      "busiest": [
+        1,
+        5,
+        9,
+        12
+      ]
     }
   },
   {
@@ -332,9 +707,679 @@
     "lng": 151.2093,
     "dailyBudget": 140,
     "seasonality": {
-      "cheapest": [5, 6, 7, 8],
-      "best": [3, 4, 9, 10, 11],
-      "busiest": [1, 2, 12]
+      "cheapest": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "best": [
+        3,
+        4,
+        9,
+        10,
+        11
+      ],
+      "busiest": [
+        1,
+        2,
+        12
+      ]
+    }
+  },
+  {
+    "id": "prague",
+    "name": "Prague",
+    "country": "Czech Republic",
+    "lat": 50.0755,
+    "lng": 14.4378,
+    "dailyBudget": 70,
+    "seasonality": {
+      "cheapest": [
+        1,
+        2,
+        11
+      ],
+      "best": [
+        3,
+        4,
+        5,
+        9,
+        10
+      ],
+      "busiest": [
+        6,
+        7,
+        8,
+        12
+      ]
+    }
+  },
+  {
+    "id": "vienna",
+    "name": "Vienna",
+    "country": "Austria",
+    "lat": 48.2082,
+    "lng": 16.3738,
+    "dailyBudget": 125,
+    "seasonality": {
+      "cheapest": [
+        1,
+        2,
+        11
+      ],
+      "best": [
+        3,
+        4,
+        5,
+        9,
+        10
+      ],
+      "busiest": [
+        6,
+        7,
+        8,
+        12
+      ]
+    }
+  },
+  {
+    "id": "berlin",
+    "name": "Berlin",
+    "country": "Germany",
+    "lat": 52.52,
+    "lng": 13.405,
+    "dailyBudget": 110,
+    "seasonality": {
+      "cheapest": [
+        1,
+        2,
+        11
+      ],
+      "best": [
+        3,
+        4,
+        5,
+        9,
+        10
+      ],
+      "busiest": [
+        6,
+        7,
+        8,
+        12
+      ]
+    }
+  },
+  {
+    "id": "athens",
+    "name": "Athens",
+    "country": "Greece",
+    "lat": 37.9838,
+    "lng": 23.7275,
+    "dailyBudget": 85,
+    "seasonality": {
+      "cheapest": [
+        1,
+        2,
+        11
+      ],
+      "best": [
+        3,
+        4,
+        5,
+        10
+      ],
+      "busiest": [
+        6,
+        7,
+        8,
+        9
+      ]
+    }
+  },
+  {
+    "id": "madrid",
+    "name": "Madrid",
+    "country": "Spain",
+    "lat": 40.4168,
+    "lng": -3.7038,
+    "dailyBudget": 100,
+    "seasonality": {
+      "cheapest": [
+        1,
+        2,
+        11
+      ],
+      "best": [
+        3,
+        4,
+        5,
+        9,
+        10
+      ],
+      "busiest": [
+        6,
+        7,
+        8,
+        12
+      ]
+    }
+  },
+  {
+    "id": "dublin",
+    "name": "Dublin",
+    "country": "Ireland",
+    "lat": 53.3498,
+    "lng": -6.2603,
+    "dailyBudget": 130,
+    "seasonality": {
+      "cheapest": [
+        1,
+        2,
+        11
+      ],
+      "best": [
+        3,
+        4,
+        5,
+        9,
+        10
+      ],
+      "busiest": [
+        6,
+        7,
+        8
+      ]
+    }
+  },
+  {
+    "id": "edinburgh",
+    "name": "Edinburgh",
+    "country": "United Kingdom",
+    "lat": 55.9533,
+    "lng": -3.1883,
+    "dailyBudget": 120,
+    "seasonality": {
+      "cheapest": [
+        1,
+        2,
+        11
+      ],
+      "best": [
+        3,
+        4,
+        5,
+        9,
+        10
+      ],
+      "busiest": [
+        7,
+        8,
+        12
+      ]
+    }
+  },
+  {
+    "id": "copenhagen",
+    "name": "Copenhagen",
+    "country": "Denmark",
+    "lat": 55.6761,
+    "lng": 12.5683,
+    "dailyBudget": 145,
+    "seasonality": {
+      "cheapest": [
+        1,
+        2,
+        11
+      ],
+      "best": [
+        3,
+        4,
+        5,
+        9
+      ],
+      "busiest": [
+        6,
+        7,
+        8
+      ]
+    }
+  },
+  {
+    "id": "vancouver",
+    "name": "Vancouver",
+    "country": "Canada",
+    "lat": 49.2827,
+    "lng": -123.1207,
+    "dailyBudget": 135,
+    "seasonality": {
+      "cheapest": [
+        1,
+        2,
+        11
+      ],
+      "best": [
+        4,
+        5,
+        6,
+        9,
+        10
+      ],
+      "busiest": [
+        7,
+        8
+      ]
+    }
+  },
+  {
+    "id": "toronto",
+    "name": "Toronto",
+    "country": "Canada",
+    "lat": 43.6532,
+    "lng": -79.3832,
+    "dailyBudget": 130,
+    "seasonality": {
+      "cheapest": [
+        1,
+        2,
+        11
+      ],
+      "best": [
+        4,
+        5,
+        6,
+        9,
+        10
+      ],
+      "busiest": [
+        7,
+        8
+      ]
+    }
+  },
+  {
+    "id": "san-francisco",
+    "name": "San Francisco",
+    "country": "United States",
+    "lat": 37.7749,
+    "lng": -122.4194,
+    "dailyBudget": 180,
+    "seasonality": {
+      "cheapest": [
+        1,
+        2,
+        11
+      ],
+      "best": [
+        3,
+        4,
+        5,
+        9,
+        10
+      ],
+      "busiest": [
+        6,
+        7,
+        8
+      ]
+    }
+  },
+  {
+    "id": "miami",
+    "name": "Miami",
+    "country": "United States",
+    "lat": 25.7617,
+    "lng": -80.1918,
+    "dailyBudget": 160,
+    "seasonality": {
+      "cheapest": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "best": [
+        2,
+        3,
+        4,
+        11
+      ],
+      "busiest": [
+        1,
+        7,
+        8,
+        12
+      ]
+    }
+  },
+  {
+    "id": "honolulu",
+    "name": "Honolulu",
+    "country": "United States",
+    "lat": 21.3069,
+    "lng": -157.8583,
+    "dailyBudget": 170,
+    "seasonality": {
+      "cheapest": [
+        4,
+        5,
+        9,
+        10
+      ],
+      "best": [
+        2,
+        3,
+        11
+      ],
+      "busiest": [
+        1,
+        6,
+        7,
+        8,
+        12
+      ]
+    }
+  },
+  {
+    "id": "melbourne",
+    "name": "Melbourne",
+    "country": "Australia",
+    "lat": -37.8136,
+    "lng": 144.9631,
+    "dailyBudget": 135,
+    "seasonality": {
+      "cheapest": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "best": [
+        3,
+        4,
+        9,
+        10,
+        11
+      ],
+      "busiest": [
+        1,
+        2,
+        12
+      ]
+    }
+  },
+  {
+    "id": "auckland",
+    "name": "Auckland",
+    "country": "New Zealand",
+    "lat": -36.8509,
+    "lng": 174.7645,
+    "dailyBudget": 130,
+    "seasonality": {
+      "cheapest": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "best": [
+        3,
+        4,
+        9,
+        10,
+        11
+      ],
+      "busiest": [
+        1,
+        2,
+        12
+      ]
+    }
+  },
+  {
+    "id": "kyoto",
+    "name": "Kyoto",
+    "country": "Japan",
+    "lat": 35.0116,
+    "lng": 135.7681,
+    "dailyBudget": 105,
+    "seasonality": {
+      "cheapest": [
+        1,
+        2,
+        6,
+        7
+      ],
+      "best": [
+        3,
+        4,
+        5,
+        10,
+        11
+      ],
+      "busiest": [
+        3,
+        4,
+        11
+      ]
+    }
+  },
+  {
+    "id": "osaka",
+    "name": "Osaka",
+    "country": "Japan",
+    "lat": 34.6937,
+    "lng": 135.5023,
+    "dailyBudget": 95,
+    "seasonality": {
+      "cheapest": [
+        1,
+        2,
+        6,
+        7
+      ],
+      "best": [
+        3,
+        4,
+        5,
+        10,
+        11
+      ],
+      "busiest": [
+        3,
+        4,
+        11
+      ]
+    }
+  },
+  {
+    "id": "taipei",
+    "name": "Taipei",
+    "country": "Taiwan",
+    "lat": 25.033,
+    "lng": 121.5654,
+    "dailyBudget": 75,
+    "seasonality": {
+      "cheapest": [
+        1,
+        6,
+        7
+      ],
+      "best": [
+        2,
+        3,
+        4,
+        10,
+        11
+      ],
+      "busiest": [
+        1,
+        12
+      ]
+    }
+  },
+  {
+    "id": "hong-kong",
+    "name": "Hong Kong",
+    "country": "China",
+    "lat": 22.3193,
+    "lng": 114.1694,
+    "dailyBudget": 120,
+    "seasonality": {
+      "cheapest": [
+        6,
+        7,
+        8
+      ],
+      "best": [
+        2,
+        3,
+        4,
+        10,
+        11
+      ],
+      "busiest": [
+        1,
+        12
+      ]
+    }
+  },
+  {
+    "id": "chiang-mai",
+    "name": "Chiang Mai",
+    "country": "Thailand",
+    "lat": 18.7883,
+    "lng": 98.9853,
+    "dailyBudget": 40,
+    "seasonality": {
+      "cheapest": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "best": [
+        1,
+        2,
+        11,
+        12
+      ],
+      "busiest": [
+        3,
+        4,
+        7,
+        8
+      ]
+    }
+  },
+  {
+    "id": "phuket",
+    "name": "Phuket",
+    "country": "Thailand",
+    "lat": 7.8804,
+    "lng": 98.3923,
+    "dailyBudget": 55,
+    "seasonality": {
+      "cheapest": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "best": [
+        1,
+        2,
+        11,
+        12
+      ],
+      "busiest": [
+        3,
+        4,
+        7,
+        8
+      ]
+    }
+  },
+  {
+    "id": "ho-chi-minh-city",
+    "name": "Ho Chi Minh City",
+    "country": "Vietnam",
+    "lat": 10.8231,
+    "lng": 106.6297,
+    "dailyBudget": 40,
+    "seasonality": {
+      "cheapest": [
+        5,
+        6,
+        9
+      ],
+      "best": [
+        1,
+        2,
+        3,
+        11,
+        12
+      ],
+      "busiest": [
+        1,
+        7,
+        8,
+        12
+      ]
+    }
+  },
+  {
+    "id": "lima",
+    "name": "Lima",
+    "country": "Peru",
+    "lat": -12.0464,
+    "lng": -77.0428,
+    "dailyBudget": 60,
+    "seasonality": {
+      "cheapest": [
+        1,
+        2,
+        6,
+        7
+      ],
+      "best": [
+        3,
+        4,
+        5,
+        10,
+        11
+      ],
+      "busiest": [
+        7,
+        8,
+        12
+      ]
+    }
+  },
+  {
+    "id": "delhi",
+    "name": "Delhi",
+    "country": "India",
+    "lat": 28.6139,
+    "lng": 77.209,
+    "dailyBudget": 45,
+    "seasonality": {
+      "cheapest": [
+        6,
+        7,
+        8
+      ],
+      "best": [
+        2,
+        3,
+        10,
+        11
+      ],
+      "busiest": [
+        1,
+        12
+      ]
     }
   }
 ]

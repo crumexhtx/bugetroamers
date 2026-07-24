@@ -322,4 +322,293 @@ export const destinationExplore: Record<string, DestinationExploreInfo> = {
       { name: 'Manly Ferry', blurb: 'Scenic harbor crossing to a beach suburb.' },
     ],
   },
+
+  prague: {
+    highlights:
+      'Castle views, Old Town square, and affordable city breaks.',
+    bestFor: 'First-time Central Europe trips',
+    topAttractions: [
+      { name: 'Charles Bridge', blurb: 'Iconic stone bridge lined with statues and sunrise views.' },
+      { name: 'Prague Castle', blurb: 'Hilltop complex with cathedral courtyards and city panoramas.' },
+      { name: 'Old Town Square', blurb: 'Astronomical Clock, gothic towers, and café terraces.' },
+      { name: 'Jewish Quarter', blurb: 'Historic synagogues and a powerful cemetery walk.' },
+      { name: 'Letná Park', blurb: 'Beer garden views over the Vltava and rooftops.' },
+    ],
+  },
+  vienna: {
+    highlights:
+      'Palaces, coffee culture, and polished museum quarters.',
+    bestFor: 'Culture-heavy city breaks',
+    topAttractions: [
+      { name: 'Schönbrunn Palace', blurb: 'Baroque palace and gardens on Vienna’s edge.' },
+      { name: 'St. Stephen’s Cathedral', blurb: 'Gothic landmark in the historic center.' },
+      { name: 'Belvedere Palace', blurb: 'Baroque complex with Klimt’s famous works.' },
+      { name: 'Hofburg', blurb: 'Imperial palace halls and museum collections.' },
+      { name: 'Naschmarkt', blurb: 'Food market for snacks, spices, and people-watching.' },
+    ],
+  },
+  berlin: {
+    highlights:
+      'History sites, nightlife, and independent food scenes.',
+    bestFor: 'Flexible urban explorers',
+    topAttractions: [
+      { name: 'Brandenburg Gate', blurb: 'Neoclassical symbol of the city and German reunification.' },
+      { name: 'East Side Gallery', blurb: 'Open-air murals on a remaining stretch of the Wall.' },
+      { name: 'Museum Island', blurb: 'Cluster of major museums in the river Spree.' },
+      { name: 'Reichstag Dome', blurb: 'Glass dome with parliament views—book ahead.' },
+      { name: 'Tempelhofer Feld', blurb: 'Former airport turned vast public park.' },
+    ],
+  },
+  athens: {
+    highlights:
+      'Acropolis views, plazas, and island day-trip access.',
+    bestFor: 'History and food city breaks',
+    topAttractions: [
+      { name: 'Acropolis', blurb: 'Parthenon and hilltop temples above the city.' },
+      { name: 'Acropolis Museum', blurb: 'Modern museum for sculptures from the rock.' },
+      { name: 'Plaka', blurb: 'Historic lanes under the Acropolis.' },
+      { name: 'Ancient Agora', blurb: 'Ruins of the civic heart of classical Athens.' },
+      { name: 'Mount Lycabettus', blurb: 'Panorama over Athens and the sea.' },
+    ],
+  },
+  madrid: {
+    highlights:
+      'World-class art, tapas crawls, and park afternoons.',
+    bestFor: 'Food and culture trips',
+    topAttractions: [
+      { name: 'Prado Museum', blurb: 'Masterpieces from Spain’s golden age and beyond.' },
+      { name: 'Retiro Park', blurb: 'Boats, gardens, and a peaceful city escape.' },
+      { name: 'Royal Palace', blurb: 'Lavish rooms and courtyards in the city center.' },
+      { name: 'Plaza Mayor', blurb: 'Historic square for people-watching.' },
+      { name: 'Gran Vía', blurb: 'Lights, shops, and theaters through the evening.' },
+    ],
+  },
+  dublin: {
+    highlights:
+      'Pubs, museums, and easy day trips along the coast.',
+    bestFor: 'Short city breaks with nightlife',
+    topAttractions: [
+      { name: 'Trinity College', blurb: 'Historic campus and the Book of Kells.' },
+      { name: 'Temple Bar', blurb: 'Lively nightlife and music district.' },
+      { name: 'Guinness Storehouse', blurb: 'Brewery experience with rooftop views.' },
+      { name: 'St. Stephen’s Green', blurb: 'Central park for an easy pause.' },
+      { name: 'Howth', blurb: 'Coastal village day trip with cliff walks.' },
+    ],
+  },
+  edinburgh: {
+    highlights:
+      'Castle skyline, Old Town lanes, and festival energy.',
+    bestFor: 'Scenic city breaks',
+    topAttractions: [
+      { name: 'Edinburgh Castle', blurb: 'Fortress above the Royal Mile.' },
+      { name: 'Royal Mile', blurb: 'Historic street linking castle and palace.' },
+      { name: 'Arthur’s Seat', blurb: 'Hill hike with panoramic city views.' },
+      { name: 'Holyrood Palace', blurb: 'Official Scottish residence of the monarch.' },
+      { name: 'Calton Hill', blurb: 'Monuments and sunset viewpoints.' },
+    ],
+  },
+  copenhagen: {
+    highlights:
+      'Bike lanes, waterfronts, and New Nordic food.',
+    bestFor: 'Design and food city trips',
+    topAttractions: [
+      { name: 'Nyhavn', blurb: 'Colorful harborfront houses and boats.' },
+      { name: 'Tivoli Gardens', blurb: 'Historic amusement park in the center.' },
+      { name: 'Christiania', blurb: 'Alternative neighborhood with murals and paths.' },
+      { name: 'The Little Mermaid', blurb: 'Harbor statue and waterfront walk.' },
+      { name: 'SMK', blurb: 'National gallery for Danish and European art.' },
+    ],
+  },
+  vancouver: {
+    highlights:
+      'Seawall walks, mountains, and diverse dining.',
+    bestFor: 'City plus outdoors trips',
+    topAttractions: [
+      { name: 'Stanley Park', blurb: 'Seawall paths, beaches, and forest trails.' },
+      { name: 'Granville Island', blurb: 'Public market and waterfront studios.' },
+      { name: 'Capilano Suspension Bridge', blurb: 'Forest bridge experience near the city.' },
+      { name: 'Gastown', blurb: 'Brick streets, steam clock, and boutiques.' },
+      { name: 'Grouse Mountain', blurb: 'Cable-car views above North Vancouver.' },
+    ],
+  },
+  toronto: {
+    highlights:
+      'Skyline icons, diverse food, and lake walks.',
+    bestFor: 'Urban food and culture trips',
+    topAttractions: [
+      { name: 'CN Tower', blurb: 'Observation decks over the skyline and lake.' },
+      { name: 'Toronto Islands', blurb: 'Ferry escape with bikes and beaches.' },
+      { name: 'Distillery District', blurb: 'Brick lanes with shops and cafés.' },
+      { name: 'ROM', blurb: 'Major museum of art, culture, and nature.' },
+      { name: 'Kensington Market', blurb: 'Eclectic streets for snacks and browsing.' },
+    ],
+  },
+  'san-francisco': {
+    highlights:
+      'Iconic views, neighborhoods, and food markets.',
+    bestFor: 'Short high-energy city trips',
+    topAttractions: [
+      { name: 'Golden Gate Bridge', blurb: 'Walk or viewpoint stops over the bay.' },
+      { name: 'Alcatraz Island', blurb: 'Ferry trip to the famous former prison.' },
+      { name: 'Fisherman’s Wharf', blurb: 'Waterfront piers and seafood stalls.' },
+      { name: 'Painted Ladies', blurb: 'Classic Victorian houses near Alamo Square.' },
+      { name: 'Chinatown', blurb: 'Historic streets, bakeries, and shops.' },
+    ],
+  },
+  miami: {
+    highlights:
+      'Beaches, nightlife, and Cuban-influenced food.',
+    bestFor: 'Beach-and-city weekends',
+    topAttractions: [
+      { name: 'South Beach', blurb: 'Art Deco hotels and lively shoreline.' },
+      { name: 'Wynwood Walls', blurb: 'Outdoor street-art district.' },
+      { name: 'Vizcaya Museum', blurb: 'Waterfront villa and gardens.' },
+      { name: 'Little Havana', blurb: 'Cafecito, cigars, and Calle Ocho energy.' },
+      { name: 'Bayside Marketplace', blurb: 'Harborfront shopping and boat views.' },
+    ],
+  },
+  honolulu: {
+    highlights:
+      'Beaches, viewpoints, and easy island day trips.',
+    bestFor: 'Beach vacations with light culture',
+    topAttractions: [
+      { name: 'Waikiki Beach', blurb: 'Classic swim-and-sunset shoreline.' },
+      { name: 'Diamond Head', blurb: 'Crater hike with coastal views.' },
+      { name: 'Pearl Harbor', blurb: 'Historic memorials and museums.' },
+      { name: 'Hanauma Bay', blurb: 'Snorkel cove with clear water.' },
+      { name: 'Iolani Palace', blurb: 'Former royal residence in downtown Honolulu.' },
+    ],
+  },
+  melbourne: {
+    highlights:
+      'Coffee culture, laneways, and coastal drives.',
+    bestFor: 'Food-focused city trips',
+    topAttractions: [
+      { name: 'Federation Square', blurb: 'Central arts plaza by the Yarra.' },
+      { name: 'Laneways', blurb: 'Street art, cafés, and hidden bars.' },
+      { name: 'Royal Botanic Gardens', blurb: 'Green escape beside the river.' },
+      { name: 'Queen Victoria Market', blurb: 'Produce, souvenirs, and local bites.' },
+      { name: 'Great Ocean Road', blurb: 'Iconic coastal day trip from the city.' },
+    ],
+  },
+  auckland: {
+    highlights:
+      'Harbor views, island ferries, and short hikes.',
+    bestFor: 'Gateway NZ city breaks',
+    topAttractions: [
+      { name: 'Sky Tower', blurb: 'Observation decks over the isthmus.' },
+      { name: 'Waiheke Island', blurb: 'Ferry day trip for beaches and vineyards.' },
+      { name: 'Auckland Domain', blurb: 'Parkland and museum near the center.' },
+      { name: 'Viaduct Harbour', blurb: 'Waterfront dining and boat watching.' },
+      { name: 'Rangitoto Island', blurb: 'Volcanic island hike with city views.' },
+    ],
+  },
+  kyoto: {
+    highlights:
+      'Temples, geisha districts, and seasonal scenery.',
+    bestFor: 'Culture-first Japan trips',
+    topAttractions: [
+      { name: 'Fushimi Inari Shrine', blurb: 'Thousands of vermilion torii gates.' },
+      { name: 'Arashiyama Bamboo Grove', blurb: 'Iconic bamboo path on Kyoto’s west side.' },
+      { name: 'Kiyomizu-dera', blurb: 'Hillside temple with wooden terrace views.' },
+      { name: 'Gion', blurb: 'Historic streets known for tea houses.' },
+      { name: 'Nijo Castle', blurb: 'Shogun palace with nightingale floors.' },
+    ],
+  },
+  osaka: {
+    highlights:
+      'Street food, nightlife, and castle parks.',
+    bestFor: 'Food-driven Japan city trips',
+    topAttractions: [
+      { name: 'Osaka Castle', blurb: 'Landmark castle in a broad park.' },
+      { name: 'Dotonbori', blurb: 'Neon canal district packed with food.' },
+      { name: 'Shinsekai', blurb: 'Retro neighborhood and Tsutenkaku Tower.' },
+      { name: 'Universal Studios Japan', blurb: 'Major theme park on the bay.' },
+      { name: 'Kuromon Market', blurb: 'Market stalls for snacks and seafood.' },
+    ],
+  },
+  taipei: {
+    highlights:
+      'Night markets, temples, and easy day hikes.',
+    bestFor: 'Food-focused city travel',
+    topAttractions: [
+      { name: 'Taipei 101', blurb: 'Skyscraper observation floors and mall.' },
+      { name: 'Shilin Night Market', blurb: 'Classic night-market snacks and stalls.' },
+      { name: 'Chiang Kai-shek Memorial', blurb: 'Monument plaza and cultural venues.' },
+      { name: 'Jiufen', blurb: 'Hillside old street day trip with teahouses.' },
+      { name: 'Beitou Hot Springs', blurb: 'Thermal baths north of the city.' },
+    ],
+  },
+  'hong-kong': {
+    highlights:
+      'Skyline vistas, markets, and island escapes.',
+    bestFor: 'Short high-energy stopovers',
+    topAttractions: [
+      { name: 'Victoria Peak', blurb: 'Tram ride and harbor panoramas.' },
+      { name: 'Star Ferry', blurb: 'Classic harbor crossing between shores.' },
+      { name: 'Temple Street Night Market', blurb: 'Evening stalls and street snacks.' },
+      { name: 'Big Buddha', blurb: 'Giant Buddha day trip on Lantau.' },
+      { name: 'Tsim Sha Tsui Promenade', blurb: 'Waterfront walk facing Hong Kong Island.' },
+    ],
+  },
+  'chiang-mai': {
+    highlights:
+      'Temples, cafés, and affordable slow travel.',
+    bestFor: 'Relaxed SE Asia city stays',
+    topAttractions: [
+      { name: 'Old City Temples', blurb: 'Wat Phra Singh and neighboring wats.' },
+      { name: 'Sunday Night Market', blurb: 'Walking street market through the old town.' },
+      { name: 'Doi Suthep', blurb: 'Hilltop temple with city views.' },
+      { name: 'Old City Moat', blurb: 'Walkable historic core and cafés.' },
+      { name: 'Elephant Nature Park', blurb: 'Ethical elephant sanctuary day trip.' },
+    ],
+  },
+  phuket: {
+    highlights:
+      'Beaches, island hops, and seafood dinners.',
+    bestFor: 'Beach vacations',
+    topAttractions: [
+      { name: 'Patong Beach', blurb: 'Busy beach strip with nightlife nearby.' },
+      { name: 'Old Phuket Town', blurb: 'Sino-Portuguese streets and cafés.' },
+      { name: 'Big Buddha', blurb: 'Hilltop Buddha statue with views.' },
+      { name: 'Phi Phi Islands', blurb: 'Popular boat-day destination offshore.' },
+      { name: 'Promthep Cape', blurb: 'Sunset viewpoint at the island’s tip.' },
+    ],
+  },
+  'ho-chi-minh-city': {
+    highlights:
+      'Street food, markets, and wartime history.',
+    bestFor: 'Food and city exploration',
+    topAttractions: [
+      { name: 'Ben Thanh Market', blurb: 'Central market for souvenirs and snacks.' },
+      { name: 'Notre-Dame Cathedral', blurb: 'Colonial-era landmark in District 1.' },
+      { name: 'War Remnants Museum', blurb: 'Powerful modern-history museum.' },
+      { name: 'Cu Chi Tunnels', blurb: 'Day trip to historic tunnel network.' },
+      { name: 'Nguyen Hue Walking Street', blurb: 'Evening plaza for strolling and photos.' },
+    ],
+  },
+  lima: {
+    highlights:
+      'World-class dining and coastal neighborhoods.',
+    bestFor: 'Food-focused South America trips',
+    topAttractions: [
+      { name: 'Historic Center', blurb: 'Plaza Mayor and colonial architecture.' },
+      { name: 'Miraflores', blurb: 'Clifftop parks and shopping streets.' },
+      { name: 'Barranco', blurb: 'Bohemian district with bridges and bars.' },
+      { name: 'Larco Museum', blurb: 'Pre-Columbian art in a beautiful villa.' },
+      { name: 'Huaca Pucllana', blurb: 'Adobe pyramid in the middle of Miraflores.' },
+    ],
+  },
+  delhi: {
+    highlights:
+      'Monuments, markets, and neighborhood food crawls.',
+    bestFor: 'First-time India city travel',
+    topAttractions: [
+      { name: 'Red Fort', blurb: 'Mughal fortress in Old Delhi.' },
+      { name: 'Qutub Minar', blurb: 'Towering minaret complex in the south.' },
+      { name: 'India Gate', blurb: 'War memorial and central vista.' },
+      { name: 'Humayun’s Tomb', blurb: 'Garden tomb that inspired later Mughal design.' },
+      { name: 'Chandni Chowk', blurb: 'Dense Old Delhi market lanes.' },
+    ],
+  },
 };
