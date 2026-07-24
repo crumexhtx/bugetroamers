@@ -9,8 +9,14 @@ import type {
 
 export interface CostEngineInput {
   destination: Destination;
+  /** Calendar days spent at the destination (food, local transport, activities). */
   numberOfDays: number;
   groupSize: number;
+  /**
+   * Lodging nights. Defaults to `numberOfDays` for the primitive helper.
+   * Trip-plan aggregation passes nights explicitly (usually totalDays - 1).
+   */
+  numberOfNights?: number;
 }
 
 export interface CostBreakdown {
@@ -27,12 +33,32 @@ export interface CostBreakdown {
 export interface TripCostBreakdown extends CostBreakdown {
   destinationTransport: number;
   custom: number;
+  actualSpend: number;
+  /** actualSpend - grandTotal; positive means over estimate. */
+  estimateVariance: number;
+  totalDays: number;
+  totalNights: number;
 }
 
 export interface TransportEstimate {
   available: boolean;
   distanceKm: number;
+  /** One-way cost in USD for this segment. */
   costUsd: number;
+}
+
+export interface TransportLegEstimate extends TransportEstimate {
+  fromName: string;
+  toName: string;
+}
+
+export interface TripTransportEstimate {
+  available: boolean;
+  totalDistanceKm: number;
+  /** Full itinerary transport cost including return to origin. */
+  costUsd: number;
+  legs: TransportLegEstimate[];
+  includesReturn: boolean;
 }
 
 const FLIGHT_SEASON_MULTIPLIERS: Record<TravelSeason, number> = {
@@ -41,7 +67,7 @@ const FLIGHT_SEASON_MULTIPLIERS: Record<TravelSeason, number> = {
   busiest: 1.3,
 };
 
-/** Category weights applied to the adjusted daily rate (must sum to 1). */
+/** Category weights applied to the destination daily budget (must sum to 1). */
 const CATEGORY_WEIGHTS = {
   lodging: 0.38,
   food: 0.28,
@@ -67,22 +93,44 @@ function positiveInteger(value: number): number {
   return Number.isFinite(value) ? Math.max(1, Math.floor(value)) : 1;
 }
 
+function nonNegativeNumber(value: number): number {
+  return Number.isFinite(value) ? Math.max(0, value) : 0;
+}
+
 /**
- * Computes trip subtotals from destination base daily budget,
- * travel tier, trip length, and party size.
+ * Lodging nights for a stop in a multi-city plan.
+ * Intermediate stops keep a night for each allocated day; the final stop
+ * drops the departure day so trip nights = calendarDays - 1.
+ */
+export function lodgingNightsForLeg(
+  days: number,
+  isLastLeg: boolean,
+): number {
+  const safeDays = positiveInteger(days);
+  return isLastLeg ? Math.max(0, safeDays - 1) : safeDays;
+}
+
+/**
+ * Computes destination ground-cost subtotals from daily budget,
+ * calendar days, lodging nights, and party size.
  */
 export function calculateTripCost({
   destination,
   numberOfDays,
   groupSize,
+  numberOfNights,
 }: CostEngineInput): CostBreakdown {
   const days = positiveInteger(numberOfDays);
+  const nights =
+    numberOfNights === undefined
+      ? days
+      : Math.max(0, Math.floor(nonNegativeNumber(numberOfNights)));
   const travelers = positiveInteger(groupSize);
   const rooms = Math.ceil(travelers / 2);
   const adjustedDaily = destination.dailyBudget;
 
   const lodging = roundCurrency(
-    adjustedDaily * CATEGORY_WEIGHTS.lodging * days * rooms,
+    adjustedDaily * CATEGORY_WEIGHTS.lodging * nights * rooms,
   );
   const food = roundCurrency(
     adjustedDaily * CATEGORY_WEIGHTS.food * days * travelers,
@@ -130,15 +178,24 @@ export function calculateTripPlanCost(
     grandTotal: 0,
   };
 
-  for (const leg of trip.legs) {
+  let totalDays = 0;
+  let totalNights = 0;
+
+  trip.legs.forEach((leg, index) => {
     const destination = destinations.find(
       (candidate) => candidate.id === leg.destinationId,
     );
-    if (!destination) continue;
+    if (!destination) return;
+
+    const days = positiveInteger(leg.days);
+    const nights = lodgingNightsForLeg(days, index === trip.legs.length - 1);
+    totalDays += days;
+    totalNights += nights;
 
     const legCost = calculateTripCost({
       destination,
-      numberOfDays: leg.days,
+      numberOfDays: days,
+      numberOfNights: nights,
       groupSize: trip.groupSize,
     });
     totals.lodging += legCost.lodging;
@@ -146,7 +203,7 @@ export function calculateTripPlanCost(
     totals.localTransport += legCost.localTransport;
     totals.activities += legCost.activities;
     totals.contingency += legCost.contingency;
-  }
+  });
 
   const destinationTransport = roundCurrency(
     Math.max(0, trip.longDistanceTransportUsd),
@@ -157,11 +214,8 @@ export function calculateTripPlanCost(
       0,
     ),
   );
-  const days = trip.legs.reduce(
-    (sum, leg) => sum + positiveInteger(leg.days),
-    0,
-  );
   const travelers = positiveInteger(trip.groupSize);
+  const actualSpend = calculateActualSpendUsd(trip);
 
   totals.lodging = roundCurrency(totals.lodging);
   totals.food = roundCurrency(totals.food);
@@ -179,10 +233,18 @@ export function calculateTripPlanCost(
   );
   totals.perPersonTrip = roundCurrency(totals.grandTotal / travelers);
   totals.perPersonDaily = roundCurrency(
-    days > 0 ? totals.perPersonTrip / days : 0,
+    totalDays > 0 ? totals.perPersonTrip / totalDays : 0,
   );
 
-  return { ...totals, destinationTransport, custom };
+  return {
+    ...totals,
+    destinationTransport,
+    custom,
+    actualSpend,
+    estimateVariance: roundCurrency(actualSpend - totals.grandTotal),
+    totalDays,
+    totalNights,
+  };
 }
 
 function degreesToRadians(value: number): number {
@@ -209,6 +271,12 @@ export function calculateDistanceKm(
   );
 }
 
+type GeoPoint = Pick<Origin, 'lat' | 'lng' | 'name'>;
+
+/**
+ * One-way transport estimate between two points.
+ * Round-trip / multi-city pricing should use `estimateTripTransport`.
+ */
 export function estimateDestinationTransport(
   origin: Origin,
   destination: Destination,
@@ -216,32 +284,49 @@ export function estimateDestinationTransport(
   travelers: number,
   travelSeason: TravelSeason = 'best',
 ): TransportEstimate {
-  const distanceKm = calculateDistanceKm(origin, destination);
+  return estimateOneWayTransport(
+    origin,
+    destination,
+    mode,
+    travelers,
+    travelSeason,
+  );
+}
+
+function estimateOneWayTransport(
+  from: GeoPoint,
+  to: GeoPoint,
+  mode: TransportMode,
+  travelers: number,
+  travelSeason: TravelSeason = 'best',
+): TransportEstimate {
+  const distanceKm = calculateDistanceKm(from, to);
   const partySize = positiveInteger(travelers);
   let available = true;
   let costUsd = 0;
 
   switch (mode) {
     case 'flight':
+      // One-way planning average; seasonally adjusted.
       costUsd =
-        Math.max(180, 120 + distanceKm * 0.07) *
+        Math.max(90, 60 + distanceKm * 0.035) *
         partySize *
         FLIGHT_SEASON_MULTIPLIERS[travelSeason];
       break;
     case 'driving': {
       available = distanceKm <= 3000;
-      const roundTripMiles = distanceKm * 1.24274;
-      const travelDays = Math.max(1, Math.ceil((distanceKm * 2) / 700));
-      costUsd = roundTripMiles * 0.24 + travelDays * 45;
+      const oneWayMiles = distanceKm * 0.62137;
+      const travelDays = Math.max(1, Math.ceil(distanceKm / 700));
+      costUsd = oneWayMiles * 0.24 + travelDays * 45;
       break;
     }
     case 'train':
       available = distanceKm <= 2000;
-      costUsd = Math.max(80, distanceKm * 0.16) * 2 * partySize;
+      costUsd = Math.max(40, distanceKm * 0.08) * partySize;
       break;
     case 'water':
       available = distanceKm >= 300 && distanceKm <= 9000;
-      costUsd = Math.max(600, distanceKm * 0.18) * partySize;
+      costUsd = Math.max(300, distanceKm * 0.09) * partySize;
       break;
   }
 
@@ -249,6 +334,62 @@ export function estimateDestinationTransport(
     available,
     distanceKm,
     costUsd: available ? roundCurrency(costUsd) : 0,
+  };
+}
+
+/**
+ * Prices every itinerary segment: origin → each stop → return to origin.
+ */
+export function estimateTripTransport(
+  origin: Origin,
+  destinations: Destination[],
+  mode: TransportMode,
+  travelers: number,
+  travelSeason: TravelSeason = 'best',
+): TripTransportEstimate {
+  const stops = destinations.filter(Boolean);
+  if (stops.length === 0) {
+    return {
+      available: false,
+      totalDistanceKm: 0,
+      costUsd: 0,
+      legs: [],
+      includesReturn: true,
+    };
+  }
+
+  const points: GeoPoint[] = [origin, ...stops, origin];
+  const legs: TransportLegEstimate[] = [];
+
+  for (let index = 0; index < points.length - 1; index += 1) {
+    const from = points[index];
+    const to = points[index + 1];
+    const segment = estimateOneWayTransport(
+      from,
+      to,
+      mode,
+      travelers,
+      travelSeason,
+    );
+    legs.push({
+      ...segment,
+      fromName: from.name,
+      toName: to.name,
+    });
+  }
+
+  const available = legs.every((leg) => leg.available);
+  const totalDistanceKm = legs.reduce((sum, leg) => sum + leg.distanceKm, 0);
+  const costUsd = available
+    ? roundCurrency(legs.reduce((sum, leg) => sum + leg.costUsd, 0))
+    : 0;
+
+  return {
+    available,
+    totalDistanceKm,
+    costUsd,
+    legs,
+    includesReturn: true,
   };
 }
 
