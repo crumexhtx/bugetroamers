@@ -8,6 +8,8 @@ import { FeaturedDestinations } from './components/FeaturedDestinations';
 import { AboutPage, ContactPage } from './components/StaticPages';
 import { TripControls } from './components/TripControls';
 import { CostSummary } from './components/CostSummary';
+import { CurrencyTracker } from './components/CurrencyTracker';
+import { ExploreDestination } from './components/ExploreDestination';
 import {
   calculateTripPlanCost,
   estimateTripTransport,
@@ -96,6 +98,7 @@ export default function App() {
   const [theme, setTheme] = useState<'light' | 'dark'>(() =>
     localStorage.getItem('budget-roamers.theme') === 'light' ? 'light' : 'dark',
   );
+  const [exploreOpen, setExploreOpen] = useState(false);
   const [customName, setCustomName] = useState('');
   const [customAmount, setCustomAmount] = useState(0);
   const [expenseDraft, setExpenseDraft] = useState<
@@ -113,8 +116,13 @@ export default function App() {
     localStorage.setItem('budget-roamers.theme', theme);
   }, [theme]);
 
+  const primaryDestinationId = trip.legs[0]?.destinationId;
+  useEffect(() => {
+    setExploreOpen(false);
+  }, [primaryDestinationId]);
+
   const totalDays = dateRangeDays(trip.startDate, trip.endDate);
-  const hasDestination = Boolean(trip.legs[0]?.destinationId);
+  const hasDestination = Boolean(primaryDestinationId);
   const origin = origins.find((candidate) => candidate.id === trip.originId) ?? origins[0];
   const alignedLegs = useMemo(
     () => alignLegsToDateRange(trip.legs, totalDays),
@@ -283,8 +291,26 @@ export default function App() {
                 Typical on-the-ground planning baseline: ${firstDestination.dailyBudget}
                 {' '}USD per traveler per day.
               </p>
+              <button
+                type="button"
+                className="explore-button"
+                onClick={() => setExploreOpen(true)}
+              >
+                Explore {firstDestination.name}
+              </button>
             </aside>
           </section>
+
+          <ExploreDestination
+            destination={firstDestination}
+            open={exploreOpen}
+            onClose={() => setExploreOpen(false)}
+          />
+
+          <CurrencyTracker
+            destinationId={firstDestination.id}
+            destinationName={firstDestination.name}
+          />
 
           <section className="planner-panel planner-actions">
             <div>
