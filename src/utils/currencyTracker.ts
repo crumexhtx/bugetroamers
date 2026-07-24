@@ -19,7 +19,14 @@ export type TrackerCurrency =
   | 'BRL'
   | 'ARS'
   | 'ZAR'
-  | 'EGP';
+  | 'EGP'
+  | 'CZK'
+  | 'DKK'
+  | 'NZD'
+  | 'TWD'
+  | 'HKD'
+  | 'PEN'
+  | 'INR';
 
 /** Approximate July 2026 planning rates vs 1 USD. */
 export const TRACKER_USD_RATES: Record<TrackerCurrency, number> = {
@@ -43,6 +50,13 @@ export const TRACKER_USD_RATES: Record<TrackerCurrency, number> = {
   ARS: 1180,
   ZAR: 18.1,
   EGP: 49.5,
+  CZK: 21.5,
+  DKK: 6.45,
+  NZD: 1.68,
+  TWD: 31.2,
+  HKD: 7.82,
+  PEN: 3.72,
+  INR: 85.5,
 };
 
 export const TRACKER_CURRENCY_LABELS: Record<TrackerCurrency, string> = {
@@ -66,6 +80,13 @@ export const TRACKER_CURRENCY_LABELS: Record<TrackerCurrency, string> = {
   ARS: 'Argentine Peso',
   ZAR: 'South African Rand',
   EGP: 'Egyptian Pound',
+  CZK: 'Czech Koruna',
+  DKK: 'Danish Krone',
+  NZD: 'New Zealand Dollar',
+  TWD: 'New Taiwan Dollar',
+  HKD: 'Hong Kong Dollar',
+  PEN: 'Peruvian Sol',
+  INR: 'Indian Rupee',
 };
 
 /** Default local currency for a destination when available. */
@@ -96,6 +117,31 @@ export const DESTINATION_LOCAL_CURRENCY: Record<string, TrackerCurrency> = {
   'cape-town': 'ZAR',
   cairo: 'EGP',
   sydney: 'AUD',
+
+  prague: 'CZK',
+  vienna: 'EUR',
+  berlin: 'EUR',
+  athens: 'EUR',
+  madrid: 'EUR',
+  dublin: 'EUR',
+  edinburgh: 'GBP',
+  copenhagen: 'DKK',
+  vancouver: 'CAD',
+  toronto: 'CAD',
+  'san-francisco': 'USD',
+  miami: 'USD',
+  honolulu: 'USD',
+  melbourne: 'AUD',
+  auckland: 'NZD',
+  kyoto: 'JPY',
+  osaka: 'JPY',
+  taipei: 'TWD',
+  'hong-kong': 'HKD',
+  'chiang-mai': 'THB',
+  phuket: 'THB',
+  'ho-chi-minh-city': 'VND',
+  lima: 'PEN',
+  delhi: 'INR',
 };
 
 export function convertCurrency(

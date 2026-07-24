@@ -111,4 +111,101 @@ export const destinationDishes: Record<string, MustTryDish[]> = {
     { name: 'Meat pie', blurb: 'Hand-held savory pie, a local classic.', averagePriceUsd: 5 },
     { name: 'Barramundi & chips', blurb: 'Local fish with chips by the water.', averagePriceUsd: 22 },
   ],
+
+  prague: [
+    { name: 'Trdelník', blurb: 'Sweet spit-cake pastry popular with visitors.', averagePriceUsd: 4 },
+    { name: 'Svíčková', blurb: 'Creamy vegetable sauce with beef and dumplings.', averagePriceUsd: 12 },
+  ],
+  vienna: [
+    { name: 'Wiener Schnitzel', blurb: 'Thin breaded veal or pork cutlet.', averagePriceUsd: 22 },
+    { name: 'Sachertorte', blurb: 'Dense chocolate cake with apricot jam.', averagePriceUsd: 8 },
+  ],
+  berlin: [
+    { name: 'Currywurst', blurb: 'Sliced sausage with curry ketchup.', averagePriceUsd: 5 },
+    { name: 'Döner kebab', blurb: 'Berlin’s classic late-night wrap.', averagePriceUsd: 7 },
+  ],
+  athens: [
+    { name: 'Souvlaki', blurb: 'Grilled meat skewers in pita with sauces.', averagePriceUsd: 5 },
+    { name: 'Moussaka', blurb: 'Baked layers of eggplant, meat, and béchamel.', averagePriceUsd: 14 },
+  ],
+  madrid: [
+    { name: 'Tapas crawl', blurb: 'Small plates shared across a few bars.', averagePriceUsd: 18 },
+    { name: 'Churros con chocolate', blurb: 'Fried dough with thick hot chocolate.', averagePriceUsd: 5 },
+  ],
+  dublin: [
+    { name: 'Irish stew', blurb: 'Hearty lamb or beef stew with vegetables.', averagePriceUsd: 16 },
+    { name: 'Full Irish breakfast', blurb: 'Eggs, sausages, bacon, and toast.', averagePriceUsd: 15 },
+  ],
+  edinburgh: [
+    { name: 'Haggis', blurb: 'Savory pudding usually served with neeps and tatties.', averagePriceUsd: 14 },
+    { name: 'Scotch pie', blurb: 'Hand-held meat pie for a quick bite.', averagePriceUsd: 4 },
+  ],
+  copenhagen: [
+    { name: 'Smørrebrød', blurb: 'Open-faced rye sandwiches with toppings.', averagePriceUsd: 16 },
+    { name: 'Hot dog (pølse)', blurb: 'Classic street hot dog with remoulade.', averagePriceUsd: 6 },
+  ],
+  vancouver: [
+    { name: 'Pacific salmon', blurb: 'Grilled or smoked salmon with local sides.', averagePriceUsd: 24 },
+    { name: 'Japanese-Canadian sushi', blurb: 'High-quality rolls and nigiri across the city.', averagePriceUsd: 18 },
+  ],
+  toronto: [
+    { name: 'Peameal bacon sandwich', blurb: 'Toronto classic on a soft bun.', averagePriceUsd: 10 },
+    { name: 'Butter tart', blurb: 'Sweet Canadian pastry with gooey filling.', averagePriceUsd: 4 },
+  ],
+  'san-francisco': [
+    { name: 'Sourdough clam chowder', blurb: 'Chowder in a sourdough bread bowl.', averagePriceUsd: 12 },
+    { name: 'Mission burrito', blurb: 'Oversized burrito from the Mission District.', averagePriceUsd: 14 },
+  ],
+  miami: [
+    { name: 'Cuban sandwich', blurb: 'Pressed ham, pork, Swiss, and pickles.', averagePriceUsd: 12 },
+    { name: 'Stone crab (in season)', blurb: 'Chilled claws with mustard sauce.', averagePriceUsd: 40 },
+  ],
+  honolulu: [
+    { name: 'Poke bowl', blurb: 'Cubed raw fish with rice and toppings.', averagePriceUsd: 16 },
+    { name: 'Spam musubi', blurb: 'Grilled Spam over rice wrapped in nori.', averagePriceUsd: 4 },
+  ],
+  melbourne: [
+    { name: 'Flat white', blurb: 'Melbourne café staple espresso drink.', averagePriceUsd: 4 },
+    { name: 'Chicken parma', blurb: 'Pub classic chicken schnitzel with toppings.', averagePriceUsd: 22 },
+  ],
+  auckland: [
+    { name: 'Fish and chips', blurb: 'Fresh local catch by the water.', averagePriceUsd: 16 },
+    { name: 'Pavlova', blurb: 'Meringue dessert with cream and fruit.', averagePriceUsd: 8 },
+  ],
+  kyoto: [
+    { name: 'Kaiseki', blurb: 'Multi-course seasonal Kyoto cuisine.', averagePriceUsd: 60 },
+    { name: 'Matcha sweets', blurb: 'Tea-flavored wagashi and soft serve.', averagePriceUsd: 5 },
+  ],
+  osaka: [
+    { name: 'Takoyaki', blurb: 'Octopus-filled savory batter balls.', averagePriceUsd: 5 },
+    { name: 'Okonomiyaki', blurb: 'Savory cabbage pancake with sauces.', averagePriceUsd: 10 },
+  ],
+  taipei: [
+    { name: 'Beef noodle soup', blurb: 'Taiwanese comfort bowl with braised beef.', averagePriceUsd: 6 },
+    { name: 'Xiaolongbao', blurb: 'Soup dumplings from famed shops.', averagePriceUsd: 10 },
+  ],
+  'hong-kong': [
+    { name: 'Dim sum', blurb: 'Small plates of dumplings and buns.', averagePriceUsd: 18 },
+    { name: 'Egg tart', blurb: 'Flaky custard tart from local bakeries.', averagePriceUsd: 2 },
+  ],
+  'chiang-mai': [
+    { name: 'Khao soi', blurb: 'Northern curry noodle soup.', averagePriceUsd: 3 },
+    { name: 'Sai ua', blurb: 'Herb-packed northern Thai sausage.', averagePriceUsd: 3 },
+  ],
+  phuket: [
+    { name: 'Seafood barbecue', blurb: 'Grilled catch at a beachside stall.', averagePriceUsd: 12 },
+    { name: 'Pad kra pao', blurb: 'Stir-fried holy basil with rice and egg.', averagePriceUsd: 3 },
+  ],
+  'ho-chi-minh-city': [
+    { name: 'Bánh mì', blurb: 'Crispy baguette sandwich with fillings.', averagePriceUsd: 2 },
+    { name: 'Phở', blurb: 'Southern-style noodle soup bowls.', averagePriceUsd: 3 },
+  ],
+  lima: [
+    { name: 'Ceviche', blurb: 'Citrus-cured seafood with onion and chili.', averagePriceUsd: 14 },
+    { name: 'Lomo saltado', blurb: 'Stir-fried beef with fries and rice.', averagePriceUsd: 12 },
+  ],
+  delhi: [
+    { name: 'Chole bhature', blurb: 'Spiced chickpeas with fried bread.', averagePriceUsd: 3 },
+    { name: 'Butter chicken', blurb: 'Creamy tomato chicken curry with bread or rice.', averagePriceUsd: 8 },
+  ],
 };

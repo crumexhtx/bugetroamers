@@ -51,4 +51,52 @@ export const destinationDescriptions: Record<string, string> = {
     'A historic metropolis on the Nile and the main gateway to the Pyramids of Giza, major museums, and Islamic architecture.',
   sydney:
     'An Australian harbor city known for its opera house, beaches, coastal walks, diverse dining, and outdoor lifestyle.',
+  prague:
+    'A fairy-tale Central European capital of bridges, castles, beer halls, and compact walkable neighborhoods.',
+  vienna:
+    'An elegant imperial city known for coffeehouses, museums, palaces, and classical music.',
+  berlin:
+    'A creative capital mixing history, nightlife, street art, and sprawling neighborhoods.',
+  athens:
+    'Greece’s historic capital where ancient ruins sit beside lively neighborhoods and tavernas.',
+  madrid:
+    'Spain’s energetic capital of museums, plazas, late dinners, and grand boulevards.',
+  dublin:
+    'A friendly capital of literary history, pubs, coastal day trips, and walkable Georgian streets.',
+  edinburgh:
+    'Scotland’s dramatic capital of castle views, closes, festivals, and surrounding hills.',
+  copenhagen:
+    'A design-forward harbor city famous for bikes, canals, food, and clean urban living.',
+  vancouver:
+    'A Pacific Rim city framed by mountains and ocean, with parks, food, and outdoor day trips.',
+  toronto:
+    'Canada’s largest city offers skyline views, neighborhoods, museums, and a serious food scene.',
+  'san-francisco':
+    'A compact hillside city of bridges, neighborhoods, foggy viewpoints, and standout food.',
+  miami:
+    'A sun-soaked coastal city of beaches, Art Deco streets, nightlife, and Latin flavors.',
+  honolulu:
+    'Hawaii’s capital combines Waikiki beaches, volcanic landscapes, and Pacific island culture.',
+  melbourne:
+    'Australia’s café capital offers laneways, sports, museums, and easy day trips to the coast.',
+  auckland:
+    'A harbor city of volcanoes, islands, and outdoor adventure at the edge of New Zealand travel.',
+  kyoto:
+    'Japan’s cultural heart of temples, tea houses, bamboo groves, and preserved historic districts.',
+  osaka:
+    'Japan’s kitchen is a lively city of street food, castles, neon districts, and easy day trips.',
+  taipei:
+    'Taiwan’s capital mixes night markets, temples, tea culture, and nearby mountain escapes.',
+  'hong-kong':
+    'A dense harbor metropolis of skyline views, street food, islands, and efficient transit.',
+  'chiang-mai':
+    'A northern Thai city of temples, cafés, night bazaars, and nearby mountains.',
+  phuket:
+    'Thailand’s major island destination for beaches, boat trips, and lively resort towns.',
+  'ho-chi-minh-city':
+    'Vietnam’s southern megacity of markets, cafés, history sites, and nonstop street food.',
+  lima:
+    'Peru’s coastal capital is a food powerhouse with colonial centers and Pacific viewpoints.',
+  delhi:
+    'India’s capital region layers Mughal monuments, markets, temples, and intense street-food culture.',
 };
