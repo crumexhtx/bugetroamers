@@ -7,10 +7,18 @@ import {
   formatTrackerAmount,
   type TrackerCurrency,
 } from '../utils/currencyTracker';
+import {
+  PLANNING_DATA_AS_OF,
+  PLANNING_DATA_AS_OF_LABEL,
+} from '../utils/pricingAssumptions';
+import { trackAnalyticsEvent } from '../utils/observability';
 
 export interface CurrencyTrackerProps {
   destinationId?: string;
   destinationName?: string;
+  showRates?: boolean;
+  targetCurrency?: TrackerCurrency;
+  targetCurrencyChangeKey?: number;
 }
 
 interface ConversionEntry {
@@ -27,9 +35,12 @@ const CURRENCIES = Object.keys(TRACKER_USD_RATES) as TrackerCurrency[];
 export function CurrencyTracker({
   destinationId,
   destinationName,
+  showRates = true,
+  targetCurrency,
+  targetCurrencyChangeKey,
 }: CurrencyTrackerProps) {
   const localCurrency =
-    (destinationId && DESTINATION_LOCAL_CURRENCY[destinationId]) || 'USD';
+    (destinationId && DESTINATION_LOCAL_CURRENCY[destinationId]) || 'EUR';
 
   const [amount, setAmount] = useState(100);
   const [from, setFrom] = useState<TrackerCurrency>('USD');
@@ -37,8 +48,8 @@ export function CurrencyTracker({
   const [history, setHistory] = useState<ConversionEntry[]>([]);
 
   useEffect(() => {
-    setTo(localCurrency);
-  }, [localCurrency]);
+    setTo(targetCurrency ?? localCurrency);
+  }, [localCurrency, targetCurrency, targetCurrencyChangeKey]);
 
   const result = useMemo(
     () => convertCurrency(amount, from, to),
@@ -58,6 +69,11 @@ export function CurrencyTracker({
 
   function trackConversion() {
     if (!(amount > 0)) return;
+    trackAnalyticsEvent('currency_conversion_used', {
+      from_currency: from,
+      to_currency: to,
+      destination_id: destinationId ?? 'none',
+    });
     setHistory((current) => [
       {
         id: crypto.randomUUID(),
@@ -78,11 +94,12 @@ export function CurrencyTracker({
     <section className="currency-tracker" aria-labelledby="currency-tracker-heading">
       <header className="currency-tracker__header">
         <div>
-          <p className="cost-summary__eyebrow">Currency tracker</p>
-          <h2 id="currency-tracker-heading">Convert & track</h2>
+          <p className="cost-summary__eyebrow">Currency converter</p>
+          <h2 id="currency-tracker-heading">Currency conversion tool</h2>
           <p className="planner-help">
             Planning rates for trip budgeting
-            {destinationName ? ` in ${destinationName}` : ''}. Not live market quotes.
+            {destinationName ? ` in ${destinationName}` : ''}. Not live market
+            quotes.
           </p>
         </div>
         {destinationId && localCurrency !== 'USD' && (
@@ -149,31 +166,49 @@ export function CurrencyTracker({
         </div>
       </div>
 
-      <div className="currency-tracker__rates" aria-label="Reference rates versus USD">
-        {(
-          [
-            'EUR',
-            'GBP',
-            'JPY',
-            'MXN',
-            'THB',
-            localCurrency,
-          ] as TrackerCurrency[]
-        )
-          .filter((code, index, list) => list.indexOf(code) === index && code !== 'USD')
-          .slice(0, 5)
-          .map((code) => (
-            <div key={code} className="currency-tracker__rate-chip">
-              <span>{code}</span>
-              <strong>
-                {TRACKER_USD_RATES[code].toLocaleString(undefined, {
-                  maximumFractionDigits: TRACKER_USD_RATES[code] >= 100 ? 0 : 2,
-                })}
-              </strong>
-              <small>per USD</small>
-            </div>
-          ))}
-      </div>
+      {showRates && (
+        <>
+          <div
+            className="currency-tracker__rates"
+            aria-label="Reference rates versus USD"
+          >
+            {(
+              [
+                'EUR',
+                'GBP',
+                'JPY',
+                'MXN',
+                'THB',
+                localCurrency,
+              ] as TrackerCurrency[]
+            )
+              .filter(
+                (code, index, list) =>
+                  list.indexOf(code) === index && code !== 'USD',
+              )
+              .slice(0, 5)
+              .map((code) => (
+                <div key={code} className="currency-tracker__rate-chip">
+                  <span>{code}</span>
+                  <strong>
+                    {TRACKER_USD_RATES[code].toLocaleString(undefined, {
+                      maximumFractionDigits:
+                        TRACKER_USD_RATES[code] >= 100 ? 0 : 2,
+                    })}
+                  </strong>
+                  <small>per USD</small>
+                </div>
+              ))}
+          </div>
+          <p className="planner-help">
+            Reference rates updated{' '}
+            <time dateTime={PLANNING_DATA_AS_OF}>
+              {PLANNING_DATA_AS_OF_LABEL}
+            </time>
+            . Approximate planning values, not live market quotes.
+          </p>
+        </>
+      )}
 
       {history.length > 0 && (
         <div className="currency-tracker__history">

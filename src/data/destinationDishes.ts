@@ -44,7 +44,7 @@ export const destinationDishes: Record<string, MustTryDish[]> = {
     { name: 'Supplì', blurb: 'Fried risotto balls with a molten cheese center.', averagePriceUsd: 3 },
   ],
   barcelona: [
-    { name: 'Paella', blurb: 'Saffron rice with seafood or mixed meats.', averagePriceUsd: 18 },
+    { name: 'Pa amb tomàquet', blurb: 'Catalan bread rubbed with tomato, olive oil, and salt.', averagePriceUsd: 5 },
     { name: 'Patatas bravas', blurb: 'Fried potatoes with spicy tomato sauce.', averagePriceUsd: 6 },
   ],
   amsterdam: [
@@ -52,7 +52,7 @@ export const destinationDishes: Record<string, MustTryDish[]> = {
     { name: 'Bitterballen', blurb: 'Crispy fried beef ragout bites.', averagePriceUsd: 8 },
   ],
   istanbul: [
-    { name: 'Kebab wrap', blurb: 'Grilled meat with salad in flatbread.', averagePriceUsd: 5 },
+    { name: 'Balık ekmek', blurb: 'Grilled fish sandwich associated with the Bosphorus waterfront.', averagePriceUsd: 6 },
     { name: 'Baklava', blurb: 'Layered pastry with nuts and syrup.', averagePriceUsd: 3 },
   ],
   dubai: [
@@ -84,7 +84,7 @@ export const destinationDishes: Record<string, MustTryDish[]> = {
     { name: 'Korean BBQ', blurb: 'Table-grill meats with banchan sides.', averagePriceUsd: 35 },
   ],
   orlando: [
-    { name: 'Theme-park burger meal', blurb: 'Quick-service burger combo inside the parks.', averagePriceUsd: 18 },
+    { name: 'Fried alligator bites', blurb: 'Florida alligator tail, breaded and fried as an appetizer.', averagePriceUsd: 14 },
     { name: 'Key lime pie', blurb: 'Tangy citrus pie popular across Florida.', averagePriceUsd: 7 },
   ],
   cancun: [
@@ -100,7 +100,7 @@ export const destinationDishes: Record<string, MustTryDish[]> = {
     { name: 'Empanadas', blurb: 'Savory stuffed pastries, often baked.', averagePriceUsd: 2.5 },
   ],
   'cape-town': [
-    { name: 'Bunny chow', blurb: 'Curry served in a hollowed bread loaf.', averagePriceUsd: 8 },
+    { name: 'Gatsby', blurb: 'Cape Town sandwich packed with chips, sauce, and meat or seafood.', averagePriceUsd: 9 },
     { name: 'Braai boerewors', blurb: 'Grilled spiced sausage with sides.', averagePriceUsd: 10 },
   ],
   cairo: [
@@ -113,7 +113,7 @@ export const destinationDishes: Record<string, MustTryDish[]> = {
   ],
 
   prague: [
-    { name: 'Trdelník', blurb: 'Sweet spit-cake pastry popular with visitors.', averagePriceUsd: 4 },
+    { name: 'Vepřo knedlo zelo', blurb: 'Czech roast pork with bread dumplings and sauerkraut.', averagePriceUsd: 13 },
     { name: 'Svíčková', blurb: 'Creamy vegetable sauce with beef and dumplings.', averagePriceUsd: 12 },
   ],
   vienna: [
@@ -129,7 +129,7 @@ export const destinationDishes: Record<string, MustTryDish[]> = {
     { name: 'Moussaka', blurb: 'Baked layers of eggplant, meat, and béchamel.', averagePriceUsd: 14 },
   ],
   madrid: [
-    { name: 'Tapas crawl', blurb: 'Small plates shared across a few bars.', averagePriceUsd: 18 },
+    { name: 'Cocido madrileño', blurb: 'Madrid chickpea stew with meats and vegetables.', averagePriceUsd: 18 },
     { name: 'Churros con chocolate', blurb: 'Fried dough with thick hot chocolate.', averagePriceUsd: 5 },
   ],
   dublin: [
@@ -146,7 +146,7 @@ export const destinationDishes: Record<string, MustTryDish[]> = {
   ],
   vancouver: [
     { name: 'Pacific salmon', blurb: 'Grilled or smoked salmon with local sides.', averagePriceUsd: 24 },
-    { name: 'Japanese-Canadian sushi', blurb: 'High-quality rolls and nigiri across the city.', averagePriceUsd: 18 },
+    { name: 'Japadog', blurb: 'Vancouver-style hot dog with Japanese-inspired toppings.', averagePriceUsd: 9 },
   ],
   toronto: [
     { name: 'Peameal bacon sandwich', blurb: 'Toronto classic on a soft bun.', averagePriceUsd: 10 },
@@ -165,7 +165,7 @@ export const destinationDishes: Record<string, MustTryDish[]> = {
     { name: 'Spam musubi', blurb: 'Grilled Spam over rice wrapped in nori.', averagePriceUsd: 4 },
   ],
   melbourne: [
-    { name: 'Flat white', blurb: 'Melbourne café staple espresso drink.', averagePriceUsd: 4 },
+    { name: 'Melbourne dim sim', blurb: 'Large Australian-style dumpling, steamed or fried.', averagePriceUsd: 3 },
     { name: 'Chicken parma', blurb: 'Pub classic chicken schnitzel with toppings.', averagePriceUsd: 22 },
   ],
   auckland: [
@@ -193,8 +193,8 @@ export const destinationDishes: Record<string, MustTryDish[]> = {
     { name: 'Sai ua', blurb: 'Herb-packed northern Thai sausage.', averagePriceUsd: 3 },
   ],
   phuket: [
-    { name: 'Seafood barbecue', blurb: 'Grilled catch at a beachside stall.', averagePriceUsd: 12 },
-    { name: 'Pad kra pao', blurb: 'Stir-fried holy basil with rice and egg.', averagePriceUsd: 3 },
+    { name: 'Mee Hokkien Phuket', blurb: 'Phuket-style yellow noodles stir-fried with pork and seafood.', averagePriceUsd: 4 },
+    { name: 'Moo hong', blurb: 'Peranakan-influenced braised pork belly with pepper and soy.', averagePriceUsd: 6 },
   ],
   'ho-chi-minh-city': [
     { name: 'Bánh mì', blurb: 'Crispy baguette sandwich with fillings.', averagePriceUsd: 2 },

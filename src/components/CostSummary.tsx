@@ -3,6 +3,10 @@ import {
   type TripCostBreakdown,
   type TripTransportEstimate,
 } from '../utils/costEngine';
+import {
+  PLANNING_DATA_AS_OF,
+  PLANNING_DATA_AS_OF_LABEL,
+} from '../utils/pricingAssumptions';
 import type { TripPlan } from '../types';
 
 export interface CostSummaryProps {
@@ -140,9 +144,11 @@ export function CostSummary({
       )}
 
       <p className="cost-summary__note">
-        Lodging uses nights ({costs.totalNights}), while food and local costs
-        use calendar days ({costs.totalDays}). Lodging assumes one room per two
-        travelers.
+        Planning assumptions updated{' '}
+        <time dateTime={PLANNING_DATA_AS_OF}>{PLANNING_DATA_AS_OF_LABEL}</time>.
+        Lodging uses nights ({costs.totalNights}), while food and local costs use
+        calendar days ({costs.totalDays}). Lodging assumes one room per two
+        travelers. Estimates use planning averages, not live quotes.
       </p>
     </section>
   );

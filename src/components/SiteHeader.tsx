@@ -16,7 +16,7 @@ export function SiteHeader({
       <div>
         <p className="app-shell__brand-mark">
           <NavLink to="/" className="app-shell__brand-link">
-            Budget Roamers
+            Planora
           </NavLink>
         </p>
         <h1>{title}</h1>
@@ -24,10 +24,9 @@ export function SiteHeader({
       <div className="app-shell__actions">
         <nav aria-label="Main navigation">
           <NavLink to="/" end>
-            Planner
+            Home
           </NavLink>
           <NavLink to="/destinations">Cities</NavLink>
-          <NavLink to="/partners">Partners</NavLink>
           <NavLink to="/about">About</NavLink>
           <NavLink to="/contact">Contact</NavLink>
         </nav>

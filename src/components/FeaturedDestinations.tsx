@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import type { Destination } from '../types';
 import { culturalIcons } from '../data/culturalIcons';
+import { searchWikipediaSummary } from '../utils/wikimediaImages';
 
 interface FeaturedDestinationsProps {
   destinations: Destination[];
@@ -31,17 +32,15 @@ export function FeaturedDestinations({
         }
         const title = culturalIcon?.title ?? destination.name;
         try {
-          const response = await fetch(
-            `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`,
-            { signal: controller.signal },
+          const summary = await searchWikipediaSummary(
+            title,
+            controller.signal,
           );
-          if (!response.ok) return null;
-          const result = (await response.json()) as {
-            thumbnail?: { source: string };
-            originalimage?: { source: string };
-          };
-          const image = result.thumbnail?.source ?? result.originalimage?.source;
-          return image ? ([destination.id, image] as const) : null;
+          const imageUrl =
+            summary?.thumbnail?.source ?? summary?.originalimage?.source;
+          return imageUrl
+            ? ([destination.id, imageUrl] as const)
+            : null;
         } catch {
           return null;
         }
@@ -75,6 +74,8 @@ export function FeaturedDestinations({
                   src={images[destination.id]}
                   alt=""
                   aria-hidden="true"
+                  loading="lazy"
+                  decoding="async"
                 />
               ) : (
                 <span className="featured-destination__placeholder" />

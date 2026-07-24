@@ -90,6 +90,6 @@ export const HOME_PARTNER_OFFERS: AffiliateOffer[] = [
   },
 ];
 
-export const NEWSLETTER_STORAGE_KEY = 'budget-roamers.newsletter';
+export const NEWSLETTER_STORAGE_KEY = 'planora.newsletter';
 export const NEWSLETTER_ENDPOINT = (import.meta.env.VITE_NEWSLETTER_ENDPOINT ??
   '') as string;

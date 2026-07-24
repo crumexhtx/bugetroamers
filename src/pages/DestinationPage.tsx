@@ -1,13 +1,14 @@
-import { Link, Navigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { PageMeta } from '../components/PageMeta';
 import { DestinationGuide } from '../components/DestinationGuide';
 import { TripPlanner } from '../components/TripPlanner';
 import { DestinationSnapshot } from '../components/DestinationSnapshot';
-import { RevenueOffers } from '../components/RevenueOffers';
-import { NewsletterSignup } from '../components/NewsletterSignup';
+import { CurrencyTracker } from '../components/CurrencyTracker';
 import { JsonLd } from '../components/JsonLd';
+import { NotFoundPage } from './NotFoundPage';
 import { getDestinationById } from '../utils/tripHelpers';
 import { destinationDescriptions } from '../data/destinationDescriptions';
+import { culturalIcons } from '../data/culturalIcons';
 import { buildDestinationJsonLd } from '../utils/seo';
 
 export interface DestinationPageProps {
@@ -19,7 +20,7 @@ export function DestinationPage({ theme }: DestinationPageProps) {
   const destination = getDestinationById(destinationId);
 
   if (!destination) {
-    return <Navigate to="/destinations" replace />;
+    return <NotFoundPage />;
   }
 
   const description =
@@ -29,9 +30,15 @@ export function DestinationPage({ theme }: DestinationPageProps) {
   return (
     <>
       <PageMeta
-        title={`${destination.name} Trip Cost Estimate — Budget Roamers`}
+        title={`${destination.name} Trip Cost Estimate — Planora`}
         description={`Plan a trip to ${destination.name}: cost calculator, top attractions, must-try dishes, and currency conversion. ${description}`}
         canonicalPath={`/destinations/${destination.id}`}
+        image={culturalIcons[destination.id]?.imageUrl}
+        imageAlt={
+          culturalIcons[destination.id]?.imageUrl
+            ? `${culturalIcons[destination.id].label} in ${destination.name}`
+            : undefined
+        }
       />
       <JsonLd
         id={`destination-${destination.id}`}
@@ -47,22 +54,31 @@ export function DestinationPage({ theme }: DestinationPageProps) {
           </h2>
           <p>{description}</p>
           <DestinationSnapshot destination={destination} />
-          <p>
-            <Link to="/">← Back to general calculator</Link>
-            {' · '}
-            <Link to="/destinations">All cities</Link>
-          </p>
+          <nav
+            className="destination-page__actions"
+            aria-label="Destination page actions"
+          >
+            <Link className="explore-button" to="/">
+              ← Back to calculator
+            </Link>
+            <Link
+              className="explore-button explore-button--secondary"
+              to="/destinations"
+            >
+              All cities
+            </Link>
+          </nav>
         </header>
 
-        <DestinationGuide destination={destination} />
-
-        <RevenueOffers
-          destinationId={destination.id}
-          destinationName={destination.name}
-          heading={`Book your ${destination.name} trip`}
+        <DestinationGuide
+          destination={destination}
+          showRecommendations={false}
         />
 
-        <NewsletterSignup />
+        <CurrencyTracker
+          destinationId={destination.id}
+          destinationName={destination.name}
+        />
 
         <section
           className="destination-page__calculator"
@@ -80,6 +96,7 @@ export function DestinationPage({ theme }: DestinationPageProps) {
             mode="city"
             lockedDestination={destination}
             theme={theme}
+            showDestinationSnapshot={false}
           />
         </section>
       </article>

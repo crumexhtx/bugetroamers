@@ -27,7 +27,7 @@ export function NewsletterSignup() {
         await fetch(NEWSLETTER_ENDPOINT, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: trimmed, source: 'budget-roamers' }),
+          body: JSON.stringify({ email: trimmed, source: 'planora' }),
         });
       }
 

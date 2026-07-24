@@ -21,31 +21,15 @@ export function TripControls({
   onGroupSizeChange,
 }: TripControlsProps) {
   return (
-    <section className="trip-controls" aria-labelledby="trip-controls-heading">
-      <header className="trip-controls__header">
-        <h2 id="trip-controls-heading">Adjust your estimate</h2>
-        <p>Your dates automatically determine the expected flight season.</p>
-      </header>
-
-      <div className="trip-controls__fields">
-        <label className="trip-controls__field">
-          <span className="trip-controls__label-row">
-            <span>Group size</span>
-            <output htmlFor="group-size">{groupSize}</output>
-          </span>
-          <input
-            id="group-size"
-            type="range"
-            min={1}
-            max={8}
-            step={1}
-            value={groupSize}
-            onChange={(event) => onGroupSizeChange(Number(event.target.value))}
-          />
-        </label>
-
-        <fieldset className="trip-controls__tiers">
-          <legend>When to fly</legend>
+    <>
+      <section className="trip-controls" aria-labelledby="when-to-fly-heading">
+        <header className="trip-controls__header">
+          <h2 id="when-to-fly-heading">When to fly</h2>
+          <p>Your dates automatically determine the expected flight season.</p>
+        </header>
+        <div className="trip-controls__fields">
+          <fieldset className="trip-controls__tiers">
+            <legend className="visually-hidden">Destination travel seasons</legend>
           <div
             className="trip-controls__tier-options"
             aria-label="Destination travel seasons"
@@ -75,9 +59,38 @@ export function TripControls({
               );
             })}
           </div>
-        </fieldset>
-      </div>
-    </section>
+          </fieldset>
+        </div>
+      </section>
+
+      <section
+        className="trip-controls"
+        aria-labelledby="trip-controls-heading"
+      >
+        <header className="trip-controls__header">
+          <h2 id="trip-controls-heading">Adjust your estimate</h2>
+        </header>
+        <div className="trip-controls__fields">
+          <label className="trip-controls__field">
+            <span className="trip-controls__label-row">
+              <span>Group size</span>
+              <output htmlFor="group-size">{groupSize}</output>
+            </span>
+            <input
+              id="group-size"
+              type="range"
+              min={1}
+              max={8}
+              step={1}
+              value={groupSize}
+              onChange={(event) =>
+                onGroupSizeChange(Number(event.target.value))
+              }
+            />
+          </label>
+        </div>
+      </section>
+    </>
   );
 }
 

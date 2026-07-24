@@ -11,10 +11,17 @@ const require = createRequire(import.meta.url);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
 const distDir = path.join(root, 'dist');
-const siteUrl = (process.env.VITE_SITE_URL || 'https://bugetroamers.com').replace(
-  /\/$/,
-  '',
-);
+const configuredSiteUrl = process.env.VITE_SITE_URL?.trim();
+
+if (!configuredSiteUrl) {
+  throw new Error(
+    'VITE_SITE_URL is required for production builds. Set it to the deployed site origin.',
+  );
+}
+
+const siteUrl = configuredSiteUrl.replace(/\/$/, '');
+const defaultSocialImage = `${siteUrl}/og/planora-social-preview.png`;
+const defaultSocialImageAlt = 'Planora — Explore more. Spend smarter.';
 
 const destinations = require(path.join(root, 'src/data/destinations.json'));
 const descriptions = await loadTsObjectExport(
@@ -29,6 +36,10 @@ const dishes = await loadTsObjectExport(
   path.join(root, 'src/data/destinationDishes.ts'),
   'destinationDishes',
 );
+const culturalIcons = await loadTsObjectExport(
+  path.join(root, 'src/data/culturalIcons.ts'),
+  'culturalIcons',
+);
 
 const template = await readFile(path.join(distDir, 'index.html'), 'utf8');
 
@@ -36,21 +47,21 @@ const staticRoutes = [
   {
     routePath: '/',
     filePath: path.join(distDir, 'index.html'),
-    title: 'Budget Roamers — Trip Cost Estimator',
+    title: 'Planora — Trip Cost Estimator',
     description:
-      'Estimate your trip cost before you book. Compare destinations, dates, transport, and daily budgets with Budget Roamers.',
+      'Estimate your trip cost before you book. Compare destinations, dates, transport, and daily budgets with Planora.',
     body: homeBody(),
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'WebSite',
-      name: 'Budget Roamers',
+      name: 'Planora',
       url: siteUrl,
     },
   },
   {
     routePath: '/destinations',
     filePath: path.join(distDir, 'destinations', 'index.html'),
-    title: 'City Trip Cost Guides — Budget Roamers',
+    title: 'City Trip Cost Guides — Planora',
     description:
       'Browse destination guides with trip cost calculators, top attractions, must-try dishes, and currency conversion.',
     body: destinationsIndexBody(),
@@ -64,31 +75,42 @@ const staticRoutes = [
   {
     routePath: '/about',
     filePath: path.join(distDir, 'about', 'index.html'),
-    title: 'About — Budget Roamers',
+    title: 'About — Planora',
     description:
-      'Learn how Budget Roamers helps travelers estimate trip costs before booking.',
-    body: `<main class="seo-static__panel"><h1>About Budget Roamers</h1><p>We help travelers estimate trip costs before they book.</p></main>`,
+      'Learn how Planora helps travelers estimate trip costs before booking.',
+    body: `<main class="seo-static__panel"><h1>About Planora</h1><p>We help travelers estimate trip costs before they book.</p></main>`,
     jsonLd: null,
   },
   {
     routePath: '/contact',
     filePath: path.join(distDir, 'contact', 'index.html'),
-    title: 'Contact — Budget Roamers',
+    title: 'Contact — Planora',
     description:
-      'Contact Budget Roamers with feedback, destination suggestions, or questions about trip estimates.',
+      'Contact Planora with feedback, destination suggestions, or questions about trip estimates.',
     body: `<main class="seo-static__panel"><h1>Contact</h1><p>Partner and traveler inquiries are welcome.</p></main>`,
     jsonLd: null,
   },
   {
-    routePath: '/partners',
-    filePath: path.join(distDir, 'partners', 'index.html'),
-    title: 'Partners — Budget Roamers',
+    routePath: '/privacy',
+    filePath: path.join(distDir, 'privacy', 'index.html'),
+    title: 'Privacy — Planora',
     description:
-      'Advertise and affiliate with Budget Roamers. Reach travelers who are actively estimating trip costs.',
-    body: `<main class="seo-static__panel"><h1>Partners</h1><p>Affiliate, sponsorship, and newsletter inventory for travel brands.</p><p><a href="mailto:partners@bugetroamers.com">partners@bugetroamers.com</a></p></main>`,
+      'Learn what information Planora processes and which service providers support the site.',
+    body: `<main class="seo-static__panel"><h1>Privacy notice</h1><p>Learn how Planora handles contact messages, browser preferences, hosting data, and third-party travel services.</p></main>`,
     jsonLd: null,
   },
 ];
+
+const notFoundRoute = {
+  routePath: '/404',
+  filePath: path.join(distDir, '404.html'),
+  title: 'Page Not Found — Planora',
+  description: 'The Planora page you requested could not be found.',
+  body: `<main class="seo-static__panel"><p class="cost-summary__eyebrow">404 error</p><h1>That page could not be found</h1><p>The address may be incorrect, or the page may have moved.</p><p><a href="/">Open the calculator</a> or <a href="/destinations">browse city guides</a>.</p></main>`,
+  jsonLd: null,
+  canonical: false,
+  noIndex: true,
+};
 
 for (const destination of destinations) {
   const info = explore[destination.id] ?? {};
@@ -101,9 +123,13 @@ for (const destination of destinations) {
   staticRoutes.push({
     routePath: `/destinations/${destination.id}`,
     filePath: path.join(distDir, 'destinations', destination.id, 'index.html'),
-    title: `${destination.name} Trip Cost Estimate — Budget Roamers`,
+    title: `${destination.name} Trip Cost Estimate — Planora`,
     description: `Plan a trip to ${destination.name}: cost calculator, top attractions, must-try dishes, and currency conversion. ${description}`,
     body: destinationBody(destination, description, info, topAttractions, mustTry),
+    image: culturalIcons[destination.id]?.imageUrl,
+    imageAlt: culturalIcons[destination.id]?.imageUrl
+      ? `${culturalIcons[destination.id].label} in ${destination.name}`
+      : undefined,
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'TouristDestination',
@@ -124,6 +150,7 @@ for (const route of staticRoutes) {
   await writeFile(route.filePath, renderHtml(route), 'utf8');
 }
 
+await writeFile(notFoundRoute.filePath, renderHtml(notFoundRoute), 'utf8');
 await writeFile(
   path.join(distDir, 'sitemap.xml'),
   buildSitemap(staticRoutes.map((route) => route.routePath)),
@@ -138,8 +165,13 @@ await writeFile(
 console.log(`Prerendered ${staticRoutes.length} routes → dist/`);
 
 function renderHtml(route) {
-  const canonical = `${siteUrl}${route.routePath === '/' ? '/' : route.routePath}`;
+  const canonical =
+    route.canonical === false
+      ? null
+      : `${siteUrl}${route.routePath === '/' ? '/' : route.routePath}`;
   let html = template;
+  const socialImage = route.image ?? defaultSocialImage;
+  const socialImageAlt = route.imageAlt ?? defaultSocialImageAlt;
   html = replaceTag(
     html,
     /<title>[\s\S]*?<\/title>/,
@@ -149,8 +181,30 @@ function renderHtml(route) {
   html = upsertMeta(html, 'property', 'og:title', route.title);
   html = upsertMeta(html, 'property', 'og:description', route.description);
   html = upsertMeta(html, 'property', 'og:type', 'website');
-  html = upsertMeta(html, 'property', 'og:url', canonical);
-  html = upsertLink(html, 'canonical', canonical);
+  html = upsertMeta(html, 'property', 'og:site_name', 'Planora');
+  html = upsertMeta(
+    html,
+    'property',
+    'og:url',
+    canonical ?? `${siteUrl}${route.routePath}`,
+  );
+  html = upsertMeta(html, 'property', 'og:image', socialImage);
+  if (!route.image) {
+    html = upsertMeta(html, 'property', 'og:image:width', '1200');
+    html = upsertMeta(html, 'property', 'og:image:height', '630');
+  }
+  html = upsertMeta(html, 'property', 'og:image:alt', socialImageAlt);
+  html = upsertMeta(html, 'name', 'twitter:card', 'summary_large_image');
+  html = upsertMeta(html, 'name', 'twitter:title', route.title);
+  html = upsertMeta(html, 'name', 'twitter:description', route.description);
+  html = upsertMeta(html, 'name', 'twitter:image', socialImage);
+  html = upsertMeta(html, 'name', 'twitter:image:alt', socialImageAlt);
+  if (canonical) {
+    html = upsertLink(html, 'canonical', canonical);
+  }
+  if (route.noIndex) {
+    html = upsertMeta(html, 'name', 'robots', 'noindex, nofollow');
+  }
 
   const jsonLd = route.jsonLd
     ? `<script type="application/ld+json">${JSON.stringify(route.jsonLd)}</script>`

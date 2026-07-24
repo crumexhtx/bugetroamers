@@ -6,6 +6,7 @@ import type {
   TransportMode,
   TravelSeason,
 } from '../types';
+import { PLANNING_USD_RATES } from './pricingAssumptions';
 
 export interface CostEngineInput {
   destination: Destination;
@@ -76,14 +77,9 @@ const CATEGORY_WEIGHTS = {
   contingency: 0.06,
 } as const;
 
-/** Approximate July 2026 display rates. USD remains the calculation currency. */
-export const USD_EXCHANGE_RATES: Record<CurrencyCode, number> = {
-  USD: 1,
-  EUR: 0.86,
-  GBP: 0.75,
-  CAD: 1.37,
-  AUD: 1.52,
-};
+/** Display-rate subset used by the cost engine. USD remains the calculation currency. */
+export const USD_EXCHANGE_RATES: Record<CurrencyCode, number> =
+  PLANNING_USD_RATES;
 
 export function roundCurrency(value: number): number {
   return Math.round(value * 100) / 100;

@@ -1,63 +1,10 @@
-/** Broader currency set for the conversion tracker (USD is the base). */
-export type TrackerCurrency =
-  | 'USD'
-  | 'EUR'
-  | 'GBP'
-  | 'CAD'
-  | 'AUD'
-  | 'JPY'
-  | 'KRW'
-  | 'SGD'
-  | 'THB'
-  | 'VND'
-  | 'MXN'
-  | 'HUF'
-  | 'MAD'
-  | 'TRY'
-  | 'AED'
-  | 'IDR'
-  | 'BRL'
-  | 'ARS'
-  | 'ZAR'
-  | 'EGP'
-  | 'CZK'
-  | 'DKK'
-  | 'NZD'
-  | 'TWD'
-  | 'HKD'
-  | 'PEN'
-  | 'INR';
+import { PLANNING_USD_RATES } from './pricingAssumptions';
 
-/** Approximate July 2026 planning rates vs 1 USD. */
-export const TRACKER_USD_RATES: Record<TrackerCurrency, number> = {
-  USD: 1,
-  EUR: 0.86,
-  GBP: 0.75,
-  CAD: 1.37,
-  AUD: 1.52,
-  JPY: 157.2,
-  KRW: 1385,
-  SGD: 1.28,
-  THB: 33.1,
-  VND: 25_450,
-  MXN: 18.4,
-  HUF: 345,
-  MAD: 9.15,
-  TRY: 40.2,
-  AED: 3.67,
-  IDR: 16_250,
-  BRL: 5.55,
-  ARS: 1180,
-  ZAR: 18.1,
-  EGP: 49.5,
-  CZK: 21.5,
-  DKK: 6.45,
-  NZD: 1.68,
-  TWD: 31.2,
-  HKD: 7.82,
-  PEN: 3.72,
-  INR: 85.5,
-};
+/** Broader currency set for the conversion tracker (USD is the base). */
+export type TrackerCurrency = keyof typeof PLANNING_USD_RATES;
+
+export const TRACKER_USD_RATES: Record<TrackerCurrency, number> =
+  PLANNING_USD_RATES;
 
 export const TRACKER_CURRENCY_LABELS: Record<TrackerCurrency, string> = {
   USD: 'US Dollar',

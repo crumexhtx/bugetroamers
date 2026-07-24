@@ -1,4 +1,4 @@
-# Budget Roamers — 5-Month Traffic & Revenue Backlog
+# Planora — 5-Month Traffic & Revenue Backlog
 
 Goal: grow organic traffic hard for ~5 months, then turn on live affiliate monetization.
 

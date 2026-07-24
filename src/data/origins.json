@@ -40,5 +40,89 @@
     "country": "United Kingdom",
     "lat": 51.5072,
     "lng": -0.1276
+  },
+  {
+    "id": "toronto",
+    "name": "Toronto",
+    "country": "Canada",
+    "lat": 43.6532,
+    "lng": -79.3832
+  },
+  {
+    "id": "mexico-city",
+    "name": "Mexico City",
+    "country": "Mexico",
+    "lat": 19.4326,
+    "lng": -99.1332
+  },
+  {
+    "id": "sao-paulo",
+    "name": "São Paulo",
+    "country": "Brazil",
+    "lat": -23.5505,
+    "lng": -46.6333
+  },
+  {
+    "id": "paris",
+    "name": "Paris",
+    "country": "France",
+    "lat": 48.8566,
+    "lng": 2.3522
+  },
+  {
+    "id": "frankfurt",
+    "name": "Frankfurt",
+    "country": "Germany",
+    "lat": 50.1109,
+    "lng": 8.6821
+  },
+  {
+    "id": "dubai",
+    "name": "Dubai",
+    "country": "United Arab Emirates",
+    "lat": 25.2048,
+    "lng": 55.2708
+  },
+  {
+    "id": "johannesburg",
+    "name": "Johannesburg",
+    "country": "South Africa",
+    "lat": -26.2041,
+    "lng": 28.0473
+  },
+  {
+    "id": "singapore",
+    "name": "Singapore",
+    "country": "Singapore",
+    "lat": 1.3521,
+    "lng": 103.8198
+  },
+  {
+    "id": "tokyo",
+    "name": "Tokyo",
+    "country": "Japan",
+    "lat": 35.6762,
+    "lng": 139.6503
+  },
+  {
+    "id": "sydney",
+    "name": "Sydney",
+    "country": "Australia",
+    "lat": -33.8688,
+    "lng": 151.2093
+  },
+  {
+    "id": "delhi",
+    "name": "Delhi",
+    "country": "India",
+    "lat": 28.6139,
+    "lng": 77.209
+  },
+  {
+    "id": "istanbul",
+    "name": "Istanbul",
+    "country": "Türkiye",
+    "lat": 41.0082,
+    "lng": 28.9784
   }
 ]

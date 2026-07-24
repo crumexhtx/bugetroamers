@@ -1,13 +1,21 @@
-import { useEffect, useMemo, useState } from 'react';
+import {
+  Component,
+  lazy,
+  Suspense,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+} from 'react';
 import { Link } from 'react-router-dom';
 import { destinationDescriptions } from '../data/destinationDescriptions';
-import { BudgetTravelMap } from './BudgetTravelMap';
 import { DestinationSnapshot } from './DestinationSnapshot';
 import { FeaturedDestinations } from './FeaturedDestinations';
 import { TripControls } from './TripControls';
 import { CostSummary } from './CostSummary';
-import { CurrencyTracker } from './CurrencyTracker';
 import { ExploreDestination } from './ExploreDestination';
+import { DestinationGuide } from './DestinationGuide';
 import {
   calculateTripPlanCost,
   estimateTripTransport,
@@ -32,23 +40,56 @@ import type {
   TransportMode,
   TripPlan,
 } from '../types';
+import {
+  trackAnalyticsEvent,
+  trackAnalyticsEventOnce,
+} from '../utils/observability';
+
+const BudgetTravelMap = lazy(() => import('./BudgetTravelMap'));
+
+class MapErrorBoundary extends Component<
+  { children: ReactNode },
+  { failed: boolean }
+> {
+  state = { failed: false };
+
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+
+  render() {
+    if (this.state.failed) {
+      return (
+        <div className="budget-travel-map__shell">
+          <p className="budget-travel-map__status" role="alert">
+            The map could not load. You can still use the trip controls below.
+          </p>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 export interface TripPlannerProps {
   mode: 'general' | 'city';
   lockedDestination?: Destination;
   theme: 'light' | 'dark';
+  showDestinationSnapshot?: boolean;
 }
 
 export function TripPlanner({
   mode,
   lockedDestination,
   theme,
+  showDestinationSnapshot = true,
 }: TripPlannerProps) {
   const lockedId = lockedDestination?.id ?? '';
   const [trip, setTrip] = useState<TripPlan>(() => createTrip(lockedId));
   const [exploreOpen, setExploreOpen] = useState(false);
   const [customName, setCustomName] = useState('');
   const [customAmount, setCustomAmount] = useState(0);
+  const additionalCostsRef = useRef<HTMLElement>(null);
   const [expenseDraft, setExpenseDraft] = useState<Omit<Expense, 'id'>>({
     description: '',
     category: 'Other',
@@ -134,6 +175,19 @@ export function TripPlanner({
     [tripWithTransport],
   );
 
+  useEffect(() => {
+    if (!primaryDestinationId) return;
+    trackAnalyticsEventOnce(
+      'estimate_completed',
+      `${mode}:${primaryDestinationId}`,
+      {
+        destination_id: primaryDestinationId,
+        planner_mode: mode,
+        transport_available: transportEstimate.available,
+      },
+    );
+  }, [mode, primaryDestinationId, transportEstimate.available]);
+
   function updateTrip(patch: Partial<TripPlan>) {
     setTrip((current) => ({
       ...current,
@@ -144,6 +198,10 @@ export function TripPlanner({
 
   function selectDestination(destinationId: string) {
     if (mode === 'city') return;
+    trackAnalyticsEvent('destination_selected', {
+      destination_id: destinationId,
+      planner_mode: mode,
+    });
     const [first, ...rest] = trip.legs;
     if (!first) {
       updateTrip({
@@ -154,8 +212,15 @@ export function TripPlanner({
     updateTrip({ legs: [{ ...first, destinationId }, ...rest] });
   }
 
-  function resetTrip() {
-    setTrip(createTrip(lockedId));
+  function stageAdditionalCost(name: string, amountUsd = 0) {
+    setCustomName(name);
+    setCustomAmount(amountUsd);
+    requestAnimationFrame(() =>
+      additionalCostsRef.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      }),
+    );
   }
 
   return (
@@ -183,11 +248,14 @@ export function TripPlanner({
 
         {mode === 'general' && (
           <>
-            <FeaturedDestinations destinations={featuredDestinations} />
+            <FeaturedDestinations
+              destinations={featuredDestinations}
+              onSelect={selectDestination}
+            />
             <section className="planner-panel location-first">
               <h2>Where do you want to go?</h2>
               <p className="planner-help">
-                Choose a destination for the general calculator, or open a city
+                Choose a destination for the calculator, or open a city
                 page for a dedicated estimate.
               </p>
               <label>
@@ -225,22 +293,36 @@ export function TripPlanner({
           <>
             <section className="city-overview" aria-label="Selected city overview">
               <div className="city-overview__map">
-                <BudgetTravelMap
-                  selectedDestinationId={trip.legs[0]?.destinationId}
-                  destinationIds={trip.legs.map((leg) => leg.destinationId)}
-                  origin={origin}
-                  transportMode={trip.transportMode}
-                  theme={theme}
-                  onSelectDestination={
-                    mode === 'general' ? selectDestination : undefined
-                  }
-                />
+                <MapErrorBoundary>
+                  <Suspense
+                    fallback={
+                      <div className="budget-travel-map__shell">
+                        <p className="budget-travel-map__status">
+                          Loading destination map…
+                        </p>
+                      </div>
+                    }
+                  >
+                    <BudgetTravelMap
+                      selectedDestinationId={trip.legs[0]?.destinationId}
+                      destinationIds={trip.legs.map((leg) => leg.destinationId)}
+                      origin={origin}
+                      transportMode={trip.transportMode}
+                      theme={theme}
+                      onSelectDestination={
+                        mode === 'general' ? selectDestination : undefined
+                      }
+                    />
+                  </Suspense>
+                </MapErrorBoundary>
               </div>
               <aside className="planner-panel city-overview__description">
                 <p className="cost-summary__eyebrow">Destination overview</p>
                 <h2>{firstDestination.name}</h2>
                 <p>{firstDestination.country}</p>
-                <DestinationSnapshot destination={firstDestination} />
+                {showDestinationSnapshot && (
+                  <DestinationSnapshot destination={firstDestination} />
+                )}
                 <p>
                   {destinationDescriptions[firstDestination.id] ??
                     `Explore ${firstDestination.name}, a popular destination in ${firstDestination.country}.`}
@@ -276,30 +358,11 @@ export function TripPlanner({
                   open={exploreOpen}
                   onClose={() => setExploreOpen(false)}
                 />
-                <CurrencyTracker
-                  destinationId={firstDestination.id}
-                  destinationName={firstDestination.name}
-                />
               </>
             )}
 
-            <section className="planner-panel planner-actions">
-              <div>
-                <strong>Saved trips</strong>
-                <p className="planner-help">
-                  Account-based trip saving is coming soon.
-                </p>
-              </div>
-              <button type="button" disabled>
-                Save trip — coming soon
-              </button>
-              <button type="button" onClick={resetTrip}>
-                New
-              </button>
-            </section>
-
             <section
-              className="planner-panel planner-grid"
+              className="planner-panel planner-grid planner-grid--dates"
               aria-label="Trip details"
             >
               <label>
@@ -357,6 +420,13 @@ export function TripPlanner({
                 </select>
               </label>
             </section>
+
+            <TripControls
+              groupSize={trip.groupSize}
+              travelSeason={travelSeason}
+              seasonality={firstDestination.seasonality}
+              onGroupSizeChange={(groupSize) => updateTrip({ groupSize })}
+            />
 
             <section className="planner-panel planner-grid">
               <h2>Travel between cities</h2>
@@ -420,84 +490,78 @@ export function TripPlanner({
               transport={transportEstimate}
             />
 
-            <TripControls
-              groupSize={trip.groupSize}
-              travelSeason={travelSeason}
-              seasonality={firstDestination.seasonality}
-              onGroupSizeChange={(groupSize) => updateTrip({ groupSize })}
-            />
-
-            <section className="planner-panel">
-              <h2>Itinerary</h2>
-              <p className="planner-help">
-                {mode === 'city'
-                  ? `Allocate the ${totalDays} days for your ${firstDestination.name} trip between ${trip.startDate} and ${trip.endDate}.`
-                  : `Add each city and allocate the ${totalDays} days between ${trip.startDate} and ${trip.endDate}.`}
-              </p>
-              <div className="planner-list">
-                {trip.legs.map((leg, index) => (
-                  <div className="planner-row" key={leg.id}>
-                    <span>{index + 1}</span>
-                    <select
-                      aria-label={`Destination ${index + 1}`}
-                      value={leg.destinationId}
-                      disabled={mode === 'city' && index === 0}
-                      onChange={(event) =>
-                        updateTrip({
-                          legs: trip.legs.map((candidate) =>
-                            candidate.id === leg.id
-                              ? {
-                                  ...candidate,
-                                  destinationId: event.target.value,
-                                }
-                              : candidate,
-                          ),
-                        })
-                      }
-                    >
-                      {destinations.map((destination) => (
-                        <option key={destination.id} value={destination.id}>
-                          {destination.name}, {destination.country}
-                        </option>
-                      ))}
-                    </select>
-                    <input
-                      aria-label={`Days in stop ${index + 1}`}
-                      type="number"
-                      min="1"
-                      max="30"
-                      value={leg.days}
-                      onChange={(event) =>
-                        updateTrip({
-                          legs: trip.legs.map((candidate) =>
-                            candidate.id === leg.id
-                              ? {
-                                  ...candidate,
-                                  days: Math.max(1, Number(event.target.value)),
-                                }
-                              : candidate,
-                          ),
-                        })
-                      }
-                    />
-                    <button
-                      type="button"
-                      aria-label={`Remove stop ${index + 1}`}
-                      disabled={trip.legs.length === 1 || (mode === 'city' && index === 0)}
-                      onClick={() =>
-                        updateTrip({
-                          legs: trip.legs.filter(
-                            (candidate) => candidate.id !== leg.id,
-                          ),
-                        })
-                      }
-                    >
-                      Remove
-                    </button>
-                  </div>
-                ))}
-              </div>
-              {mode === 'general' && (
+            {mode === 'general' && (
+              <section className="planner-panel">
+                <h2>Itinerary</h2>
+                <p className="planner-help">
+                  Add each city and allocate the {totalDays} days between{' '}
+                  {trip.startDate} and {trip.endDate}.
+                </p>
+                <div className="planner-list">
+                  {trip.legs.map((leg, index) => (
+                    <div className="planner-row" key={leg.id}>
+                      <span>{index + 1}</span>
+                      <select
+                        aria-label={`Destination ${index + 1}`}
+                        value={leg.destinationId}
+                        onChange={(event) =>
+                          updateTrip({
+                            legs: trip.legs.map((candidate) =>
+                              candidate.id === leg.id
+                                ? {
+                                    ...candidate,
+                                    destinationId: event.target.value,
+                                  }
+                                : candidate,
+                            ),
+                          })
+                        }
+                      >
+                        {destinations.map((destination) => (
+                          <option key={destination.id} value={destination.id}>
+                            {destination.name}, {destination.country}
+                          </option>
+                        ))}
+                      </select>
+                      <input
+                        aria-label={`Days in stop ${index + 1}`}
+                        type="number"
+                        min="1"
+                        max="30"
+                        value={leg.days}
+                        onChange={(event) =>
+                          updateTrip({
+                            legs: trip.legs.map((candidate) =>
+                              candidate.id === leg.id
+                                ? {
+                                    ...candidate,
+                                    days: Math.max(
+                                      1,
+                                      Number(event.target.value),
+                                    ),
+                                  }
+                                : candidate,
+                            ),
+                          })
+                        }
+                      />
+                      <button
+                        type="button"
+                        aria-label={`Remove stop ${index + 1}`}
+                        disabled={trip.legs.length === 1}
+                        onClick={() =>
+                          updateTrip({
+                            legs: trip.legs.filter(
+                              (candidate) => candidate.id !== leg.id,
+                            ),
+                          })
+                        }
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ))}
+                </div>
                 <button
                   type="button"
                   disabled={trip.legs.length >= totalDays}
@@ -519,10 +583,21 @@ export function TripPlanner({
                 >
                   Add destination
                 </button>
-              )}
-            </section>
+              </section>
+            )}
 
-            <section className="planner-panel planner-grid">
+            {mode === 'city' && lockedDestination && (
+              <DestinationGuide
+                destination={lockedDestination}
+                showIntro={false}
+                onAddAdditionalCost={stageAdditionalCost}
+              />
+            )}
+
+            <section
+              ref={additionalCostsRef}
+              className="planner-panel planner-grid"
+            >
               <h2>Additional planned costs</h2>
               <div className="planner-row">
                 <input
