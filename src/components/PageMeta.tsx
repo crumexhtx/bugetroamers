@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { SITE_URL } from '../config/site';
 
 export interface PageMetaProps {
   title: string;
@@ -30,7 +31,7 @@ export function PageMeta({
       canonicalTag.rel = 'canonical';
       document.head.appendChild(canonicalTag);
     }
-    const origin = window.location.origin;
+    const origin = SITE_URL || window.location.origin;
     canonicalTag.href = `${origin}${canonicalPath}`;
 
     const upsertOg = (property: string, content: string) => {
@@ -47,6 +48,8 @@ export function PageMeta({
     upsertOg('og:description', description);
     upsertOg('og:type', 'website');
     upsertOg('og:url', `${origin}${canonicalPath}`);
+
+    document.getElementById('seo-static')?.setAttribute('hidden', '');
   }, [title, description, canonicalPath]);
 
   return null;

@@ -3,8 +3,12 @@ import { PageMeta } from '../components/PageMeta';
 import { DestinationGuide } from '../components/DestinationGuide';
 import { TripPlanner } from '../components/TripPlanner';
 import { DestinationSnapshot } from '../components/DestinationSnapshot';
+import { RevenueOffers } from '../components/RevenueOffers';
+import { NewsletterSignup } from '../components/NewsletterSignup';
+import { JsonLd } from '../components/JsonLd';
 import { getDestinationById } from '../utils/tripHelpers';
 import { destinationDescriptions } from '../data/destinationDescriptions';
+import { buildDestinationJsonLd } from '../utils/seo';
 
 export interface DestinationPageProps {
   theme: 'light' | 'dark';
@@ -29,6 +33,10 @@ export function DestinationPage({ theme }: DestinationPageProps) {
         description={`Plan a trip to ${destination.name}: cost calculator, top attractions, must-try dishes, and currency conversion. ${description}`}
         canonicalPath={`/destinations/${destination.id}`}
       />
+      <JsonLd
+        id={`destination-${destination.id}`}
+        data={buildDestinationJsonLd(destination)}
+      />
 
       <article className="destination-page">
         <header className="destination-page__hero planner-panel">
@@ -48,7 +56,18 @@ export function DestinationPage({ theme }: DestinationPageProps) {
 
         <DestinationGuide destination={destination} />
 
-        <section className="destination-page__calculator" aria-label={`${destination.name} trip calculator`}>
+        <RevenueOffers
+          destinationId={destination.id}
+          destinationName={destination.name}
+          heading={`Book your ${destination.name} trip`}
+        />
+
+        <NewsletterSignup />
+
+        <section
+          className="destination-page__calculator"
+          aria-label={`${destination.name} trip calculator`}
+        >
           <div className="planner-panel">
             <p className="cost-summary__eyebrow">City calculator</p>
             <h2>Estimate your {destination.name} trip</h2>

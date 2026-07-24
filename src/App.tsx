@@ -5,6 +5,7 @@ import { HomePage } from './pages/HomePage';
 import { DestinationPage } from './pages/DestinationPage';
 import { DestinationsIndexPage } from './pages/DestinationsIndexPage';
 import { AboutPage, ContactPage } from './pages/AboutContactPages';
+import { PartnersPage } from './pages/PartnersPage';
 
 export default function App() {
   const [theme, setTheme] = useState<'light' | 'dark'>(() =>
@@ -34,6 +35,7 @@ export default function App() {
         />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/partners" element={<PartnersPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </div>

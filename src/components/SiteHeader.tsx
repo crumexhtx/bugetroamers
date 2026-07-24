@@ -27,6 +27,7 @@ export function SiteHeader({
             Planner
           </NavLink>
           <NavLink to="/destinations">Cities</NavLink>
+          <NavLink to="/partners">Partners</NavLink>
           <NavLink to="/about">About</NavLink>
           <NavLink to="/contact">Contact</NavLink>
         </nav>
