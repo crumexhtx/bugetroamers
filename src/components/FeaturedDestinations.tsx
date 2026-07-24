@@ -1,10 +1,11 @@
+import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import type { Destination } from '../types';
 import { culturalIcons } from '../data/culturalIcons';
 
 interface FeaturedDestinationsProps {
   destinations: Destination[];
-  onSelect: (destinationId: string) => void;
+  onSelect?: (destinationId: string) => void;
 }
 
 export function FeaturedDestinations({
@@ -62,32 +63,52 @@ export function FeaturedDestinations({
   return (
     <section className="featured-destinations" aria-labelledby="featured-heading">
       <div className="featured-destinations__header">
-        <h2 id="featured-heading">Popular places</h2>
-        <p>Choose a featured destination or use the target selector below.</p>
+        <h2 id="featured-heading">Popular city guides</h2>
+        <p>Open a dedicated city page with calculator, attractions, and food picks.</p>
       </div>
       <div className="featured-destinations__grid">
-        {destinations.map((destination) => (
-          <button
-            key={destination.id}
-            type="button"
-            className="featured-destination"
-            onClick={() => onSelect(destination.id)}
-          >
-            {images[destination.id] ? (
-              <img
-                src={images[destination.id]}
-                alt=""
-                aria-hidden="true"
-              />
-            ) : (
-              <span className="featured-destination__placeholder" />
-            )}
-            <span className="featured-destination__label">
-              <strong>{destination.name}</strong>
-              <small>{destination.country}</small>
-            </span>
-          </button>
-        ))}
+        {destinations.map((destination) => {
+          const content = (
+            <>
+              {images[destination.id] ? (
+                <img
+                  src={images[destination.id]}
+                  alt=""
+                  aria-hidden="true"
+                />
+              ) : (
+                <span className="featured-destination__placeholder" />
+              )}
+              <span className="featured-destination__label">
+                <strong>{destination.name}</strong>
+                <small>{destination.country}</small>
+              </span>
+            </>
+          );
+
+          if (onSelect) {
+            return (
+              <button
+                key={destination.id}
+                type="button"
+                className="featured-destination"
+                onClick={() => onSelect(destination.id)}
+              >
+                {content}
+              </button>
+            );
+          }
+
+          return (
+            <Link
+              key={destination.id}
+              className="featured-destination"
+              to={`/destinations/${destination.id}`}
+            >
+              {content}
+            </Link>
+          );
+        })}
       </div>
     </section>
   );

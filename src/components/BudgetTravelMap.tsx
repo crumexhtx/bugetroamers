@@ -7,7 +7,7 @@ import type { Destination, Origin, TransportMode } from '../types';
 export type { Destination } from '../types';
 
 export interface BudgetTravelMapProps {
-  onSelectDestination: (id: string) => void;
+  onSelectDestination?: (id: string) => void;
   selectedDestinationId?: string;
   destinationIds?: string[];
   origin?: Origin;
@@ -230,7 +230,7 @@ export function BudgetTravelMap({
 
       el.addEventListener('click', (event) => {
         event.stopPropagation();
-        onSelectRef.current(destination.id);
+        onSelectRef.current?.(destination.id);
         map.flyTo({
           center: [destination.lng, destination.lat],
           zoom: 11.5,
