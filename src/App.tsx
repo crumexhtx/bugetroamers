@@ -10,7 +10,7 @@ import { TripControls } from './components/TripControls';
 import { CostSummary } from './components/CostSummary';
 import {
   calculateTripPlanCost,
-  estimateDestinationTransport,
+  estimateTripTransport,
   getTravelSeason,
 } from './utils/costEngine';
 import type {
@@ -116,9 +116,20 @@ export default function App() {
   const totalDays = dateRangeDays(trip.startDate, trip.endDate);
   const hasDestination = Boolean(trip.legs[0]?.destinationId);
   const origin = origins.find((candidate) => candidate.id === trip.originId) ?? origins[0];
-  const firstDestination =
-    destinations.find((candidate) => candidate.id === trip.legs[0]?.destinationId) ??
-    destinations[0];
+  const alignedLegs = useMemo(
+    () => alignLegsToDateRange(trip.legs, totalDays),
+    [trip.legs, totalDays],
+  );
+  const selectedDestinations = useMemo(
+    () =>
+      alignedLegs
+        .map((leg) =>
+          destinations.find((candidate) => candidate.id === leg.destinationId),
+        )
+        .filter((destination): destination is Destination => Boolean(destination)),
+    [alignedLegs],
+  );
+  const firstDestination = selectedDestinations[0] ?? destinations[0];
   const travelSeason = getTravelSeason(
     firstDestination,
     trip.startDate,
@@ -128,15 +139,15 @@ export default function App() {
     () =>
       transportModes.map((mode) => ({
         ...mode,
-        estimate: estimateDestinationTransport(
+        estimate: estimateTripTransport(
           origin,
-          firstDestination,
+          selectedDestinations,
           mode.value,
           trip.groupSize,
           travelSeason,
         ),
       })),
-    [origin, firstDestination, trip.groupSize, travelSeason],
+    [origin, selectedDestinations, trip.groupSize, travelSeason],
   );
   const transportEstimate =
     modeEstimates.find((mode) => mode.value === trip.transportMode)?.estimate ??
@@ -144,10 +155,10 @@ export default function App() {
   const tripWithTransport = useMemo(
     () => ({
       ...trip,
-      legs: alignLegsToDateRange(trip.legs, totalDays),
+      legs: alignedLegs,
       longDistanceTransportUsd: transportEstimate.costUsd,
     }),
-    [trip, totalDays, transportEstimate.costUsd],
+    [trip, alignedLegs, transportEstimate.costUsd],
   );
   const costs = useMemo(
     () => calculateTripPlanCost(tripWithTransport, destinations),
@@ -339,7 +350,7 @@ export default function App() {
           </section>
 
           <section className="planner-panel planner-grid">
-            <h2>Travel to your first destination</h2>
+            <h2>Travel between cities</h2>
             <label>
               Transport
               <select
@@ -369,27 +380,32 @@ export default function App() {
               </select>
             </label>
             <div className="transport-estimate">
-              <span>Estimated round-trip cost</span>
+              <span>Estimated round-trip itinerary cost</span>
               <strong>
                 {transportEstimate.available
                   ? `$${transportEstimate.costUsd.toFixed(2)} USD`
                   : 'Unavailable'}
               </strong>
               <small>
-                Approximately {transportEstimate.distanceKm.toLocaleString()} km each way,
-                for {trip.groupSize} traveler{trip.groupSize === 1 ? '' : 's'}.
+                {transportEstimate.legs.length} leg
+                {transportEstimate.legs.length === 1 ? '' : 's'} ·{' '}
+                {transportEstimate.totalDistanceKm.toLocaleString()} km total ·{' '}
+                {trip.groupSize} traveler{trip.groupSize === 1 ? '' : 's'} ·
+                includes return to {origin.name}.
               </small>
             </div>
             <p className="planner-help">
-              This is a planning average based on route distance, not a live fare.
-              Train is enabled only for routes within the estimator’s supported
-              distance range. Driving and ferry/cruise estimates are coming soon.
+              Prices every stop in your itinerary plus the return home. Figures are
+              planning averages from route distance, not live fares. Train is only
+              enabled within the estimator’s supported range. Driving and
+              ferry/cruise estimates are coming soon.
             </p>
           </section>
 
           <CostSummary
             trip={tripWithTransport}
             costs={costs}
+            transport={transportEstimate}
           />
 
           <TripControls
@@ -617,12 +633,12 @@ export default function App() {
           </section>
 
           <p className="estimate-disclaimer">
-            Estimates cover lodging (one room per two travelers), food, local
-            transport, activities, contingency, estimated travel from your
-            starting destination, and custom
-            costs. They exclude any cost you do not enter. Destination rates
-            and currency conversions are approximate USD-based planning values,
-            not live quotes.
+            Estimates cover lodging nights (one room per two travelers), food and
+            local costs by calendar day, activities, contingency, long-distance
+            transport for every itinerary leg including return, and custom costs.
+            Log actual expenses below to compare against the estimate. Destination
+            rates and currency conversions are approximate USD-based planning
+            values, not live quotes.
           </p>
             </>
           )}
